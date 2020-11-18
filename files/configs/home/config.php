@@ -1,0 +1,2 @@
+<?php
+ defined('INI_TXTCMS') or exit(); return array( 'TMPL_ACTION_ERROR'=>APP_ROOT.'static/tips/_jump.html', 'TMPL_ACTION_SUCCESS'=>APP_ROOT.'static/tips/_jump.html', 'URL_404_REDIRECT'=>__ROOT__.'/', 'ERROR_PAGE'=>__ROOT__.'/', );

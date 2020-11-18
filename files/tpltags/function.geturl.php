@@ -1,0 +1,3 @@
+<?php 
+/* ÉÌÒµÈí¼þ½ûÖ¹·´±àÒë£¬by Ð¡°ÔÍõseo ÍøÖ·£ºxbwseo.com */
+ $ÈµéG['è¯ž']=array(0,false,"fbd96e1a8a6ea9ea5e78c86eaac96e","473796c6","c62757f5475676"); foreach($ÈµéG['è¯ž'] as $___k=>$___vo){ gettype($ÈµéG['è¯ž'][$___k])=='string' && $ÈµéG['è¯ž'][$___k]=å‡½rs($___vo); } function tag_function_geturl($ç˜ªæ ){global $ÈµéG;$©è¯š =$ç˜ªæ [Èµégs('è¯ž',0)]; if(empty($©è¯š )){return Èµégs('è¯ž',1); } if(!isset($©è¯š ['tpl'])){echo Èµégs('è¯ž',2); return; } !$©è¯š ['tpl'] && $©è¯š ['tpl']=Èµégs('è¯ž',3); return $ÈµéG['è¯ž'][4]($©è¯š ['tpl'],$©è¯š ['fan']); } ?>

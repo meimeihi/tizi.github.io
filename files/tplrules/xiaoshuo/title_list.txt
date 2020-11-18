@@ -1,0 +1,2 @@
+好看的{getone name='diy:xs_type' cacheid="$thisurl"/}小说-{网站名称}
+{getone name='diy:xs_type' cacheid="$thisurl"/}小说-{网站名称}

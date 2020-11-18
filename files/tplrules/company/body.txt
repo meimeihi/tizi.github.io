@@ -1,0 +1,11 @@
+<p>{$content}</p>
+<p>{$content1}{$content2}</p>
+<p><img src="{$pic}" alt="{$title}" /></p>
+<p>{$content3}{$content4}{$content5}</p>
+<p><img src="{$pic1}" alt="{$title}" /></p>
+<p>{$content6}{$content7}</p>
+<p><img src="{$pic2}" alt="{$title}" /></p>
+<p>{$content8}</p>
+<p>{$content9}{$content10}</p>
+<p>{$content11}{$content12}</p>
+<p>{$content13}{$content14}</p>

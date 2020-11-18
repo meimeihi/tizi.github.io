@@ -1,0 +1,93 @@
+{include file="header.html"}
+<body class="body-main">
+
+
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)" onClick="selectTab('config0',this)">缓存设置</a></li>
+	<li class="unsub"><a href="{url('admin/cache/clear')}">清除缓存</a></li>
+	<li class="unsub"><a href="{url('admin/cache/clearzd')}" style="color:red">清除指定缓存</a></li>
+</ul>
+<div id="admin_right_b">
+<script>
+$(function() {
+	$("#dosave").click(function(){
+		showDialog();
+		$.ajax({
+			type:"post",
+			url:"{url('admin/cache/update')}",
+			data:$("form").serialize(),
+			dataType:'json',
+			timeout:28000,
+			global:false,
+			success:function(data){
+				if(data.status==1){
+					showAlert('success','恭喜你，修改成功');
+				}else{
+					showAlert('error',data.info);
+				}
+			}
+		});
+	 return false;
+	});
+});
+</script>
+<form method="post">
+  <table width="98%" border="0" align="center" cellpadding="3" cellspacing="0" id="config0" class="tableConfig">
+	<tr class="tdbg item_title">
+		<td align="right"><i class="typcn typcn-cog"></i> 页面缓存设置</td>
+		<td style="font-weight:500;color:red">相当于生成静态，可加快打开速度，但是会占用空间容量</td>
+	</tr>
+	<tr class="tdbg">
+      <td align="right">页面缓存开关：</td>
+      <td><label><input type="radio" name="con[web_caching]" value="1"{if $web_caching} checked{/if}>开启</label> <label><input type="radio" name="con[web_caching]" value="0"{if !$web_caching} checked{/if}>关闭</label></td>
+    </tr>
+	<tr class="tdbg item_title">
+		<td align="right"><i class="typcn typcn-cog"></i> 内置页面缓存</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+      <td width="150" align="right">首页缓存时间(<font color="green">index模板</font>)：</td>
+      <td class="tdbg"><input name="con[cache_lifetime_index]" type="text" class="input" value="{$cache_lifetime_index}" size="20"> <span>小时，首页缓存更新时间，建议值<font color=red>24小时内</font></span></td>
+    </tr>
+	
+	<tr class="tdbg">
+      <td width="150" align="right">分类页缓存时间(<font color="green">list模板</font>)：</td>
+      <td class="tdbg"><input name="con[cache_lifetime_list]" type="text" class="input" value="{$cache_lifetime_list}" size="20"> <span>小时，分类页缓存更新时间，建议值<font color=red>24小时内</font></span></td>
+    </tr>
+	
+	<tr class="tdbg">
+      <td width="150" align="right">内容页缓存时间(<font color="green">show模板</font>)：</td>
+      <td class="tdbg"><input name="con[cache_lifetime_show]" type="text" class="input" value="{$cache_lifetime_show}" size="20"> <span>小时，内容页缓存更新时间，建议值<font color=red>48小时以上</font></span></td>
+    </tr>
+	<tr class="tdbg">
+      <td width="150" align="right">其他页缓存时间(<font color="green">自定义模板</font>)：</td>
+      <td class="tdbg"><input name="con[cache_lifetime_other]" type="text" class="input" value="{$cache_lifetime_other}" size="20"> <span>小时，其他页缓存更新时间，建议值<font color=red>48小时以上</font></span></td>
+    </tr>
+	<tr class="tdbg item_title">
+		<td align="right"><i class="typcn typcn-cog"></i> 局部缓存</td>
+		<td></td>
+	</tr>
+	<tr class="tdbg">
+      <td width="150" align="right">tkd等缓存时间(小时)：</td>
+      <td class="tdbg"><input name="con[cache_lifetime_tkd]" type="text" class="input" value="{$cache_lifetime_tkd|default:0}" size="20"> <span>标题、keywords、description等缓存更新时间，<font color=red>0为不缓存，开启页面缓存时此选项无效</font></span></td>
+    </tr>
+	<tr class="tdbg">
+      <td width="150" align="right">外链缓存时间(小时)：</td>
+      <td class="tdbg"><input name="con[cache_lifetime_link]" type="text" class="input" value="{$cache_lifetime_link|default:0}" size="20"> <span>外链的缓存更新时间，<font color=red>0为不缓存</font></span></td>
+    </tr>
+	
+	
+	</table>
+
+	<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr class="tdbg">
+	  <td width="130" align="center" class="tdbg">&nbsp;</td>
+      <td><button type="submit" id="dosave" class="button">保存设置</button></td>
+    </tr>
+	</table>
+	</form>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

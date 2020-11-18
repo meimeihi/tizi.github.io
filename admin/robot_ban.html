@@ -1,0 +1,50 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">蜘蛛防火墙设置</a></li>
+</ul>
+<div id="admin_right_b">
+
+<form action="?admin-robot-Update" method="post">
+<table border="0" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr>
+	<td align="right" width="120">蜘蛛防火墙开关：</td>
+	<td><label><input type="radio" name="con[web_robot_ban]" value="1" {if $web_robot_ban} checked{/if}>开启</label>
+	<label><input type="radio" name="con[web_robot_ban]" value="0" {if !$web_robot_ban} checked{/if}>关闭</label>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<table border="0" align="center" cellpadding="8" cellspacing="1">
+		<tr align="center">
+		  <td width="110" align='center' class="title_bg">蜘蛛名称</td>
+		  <td align='center' class="title_bg">屏蔽</td>
+		  <td width="110" align='center' class="title_bg">蜘蛛名称</td>
+		  <td align='center' class="title_bg">屏蔽</td>
+		</tr>
+		<?php $i=1; ?>
+		{foreach $robot_list as $key=>$vo}
+		<?php if($i==1):?><tr><?php endif; ?>
+			<td align="right"><label for="in_{$key}">{$vo}</label></td>
+			<td align='center'><input type="checkbox" name="con[web_robot_ban_list][]" id="in_{$key}" value="{$key}" {if $web_robot_ban_list && in_array($key,$web_robot_ban_list)} checked{/if} /></td>
+				<?php if($i!=$this->_var['list_last'] and ($i%2==0)):?>
+					</tr><tr>
+				<?php endif; ?>
+			<?php $i++; ?>
+		{/foreach}
+		<tr bgcolor='#ffffff'>
+			<td colspan="8"><label><input name="chkall" type="checkbox" id="chkall" onclick=checkall(this.form) value="checkbox"> 全选/反选</label></td>
+		</tr>
+		</table>
+		<tr class="tdbg">
+		  <td colspan="2"><button type="submit" id="dosave" class="button">保存设置</button></td>
+		</tr>
+	</td>
+</tr>
+</table>
+</form>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

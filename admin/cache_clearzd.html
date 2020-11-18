@@ -1,0 +1,72 @@
+{include file="header.html"}
+<body class="body-main">
+
+<ul id="admin_sub_title">
+	<li class="unsub"><a href="{url('admin/cache/index')}">缓存设置</a></li>
+	<li class="unsub"><a href="{url('admin/cache/clear')}">清除缓存</a></li>
+	<li class="sub"><a href="javascript:void(0)">清除指定缓存</a></li>
+</ul>
+
+<div id="admin_right_b">
+<form method="post">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+<tbody>
+<tr>
+  <td align="right" width="150">功能说明：</td>
+  <td>
+	<div style="color:red">可清除指定url或者指定域名下的缓存</div>
+  </td>
+</tr>
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 基本设置</td>
+	<td></td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">URL地址：</td>
+  <td><input name="url" type="text" id="url" style="text-align:left" class="input" value="" size="80"> 填写URL地址</td>
+</tr>
+<tr>
+	<td align="right">清除类型：</td> 
+	<td align="left"><select name="type" id="type">
+		<option value="tdk">tdk缓存</option>
+		<option value="link">外链缓存</option>
+		<option value="theme">模板绑定缓存</option>
+		<option value="html">页面缓存</option>
+		</select>
+	</td>
+</tr>
+<tr class="tdbg">
+	<td align="right">查询大小：</td>
+	<td align="left"><span id="c_checksize"></span>&nbsp;<a onclick="aaction('checksize');" style="cursor:pointer">点击获取</a></td>
+</tr>
+<tr>
+  <td align="right"></td>
+  <td><button type="button" class="button" onclick="aaction('del');">开始清理</button> <span id="c_del">&nbsp;</span></td>
+</tr>
+</tbody>
+</table>
+</form>
+  
+<script type="text/javascript">
+function aaction(ac){
+	$('#c_'+ac).html("<img src='static/images/load_blue.gif'>");
+	$.ajax({
+	   type: "POST",
+	   url: "?admin-cache-del-zd-1",
+	   dataType: "json",
+	   data: "action="+ac+"&file="+$('#url').val()+'&type='+$('#type').val(),
+	   success: function(a){
+		   if(a.status==1){
+				$('#c_'+ac).html("<font color='green'>"+a.size+"</font>");
+		   }else{
+				$('#c_'+ac).html("<font color='red'>"+a.info+"</font>");
+		   }
+	   }
+	});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

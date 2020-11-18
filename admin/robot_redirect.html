@@ -1,0 +1,53 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">蜘蛛强引记录</a></li>
+	<li class="unsub"><a href="?admin-robot-redirect_del" onclick='return confirm("确定删除?删除后不可恢复!");'>删除强引记录</a></li>
+	<li class="tips">注：仅显示最近5000条记录</li>
+</ul>
+<style type="text/css">
+table td{ word-break: keep-all;white-space:nowrap;}
+</style>
+<div id="admin_right_b" style="90%">
+
+<table border="0" align="center" cellpadding="3" cellspacing="1" class="table_b" style="margin-top:10px">
+	<tbody>
+	<tr>
+	  <td width="50" align='center' class="title_bg">id</td>
+	  <td width="100" align='center' class="title_bg">蜘蛛名称</td>
+	  <td width="100" align='center' class="title_bg">网站分组</td>
+	  <td width="110" align='center' class="title_bg">IP地址</td>
+      <td class="title_bg">访问地址</td>
+	  <td class="title_bg">强引地址</td>
+	  <td width="140" align='center' class="title_bg">访问时间</td>
+    </tr>
+	</tbody>
+	<tbody id="rlist">
+	{foreach $list as $vo}
+		<tr class="tdbg">
+			<td align="center">{$vo.id}</td>
+			<td align="center">{$vo.name}</td>
+			<td align="center">{$vo.typename|default:'无'}</td>
+			<td align="center">{$vo.ip}</td>
+			<td>{$vo.url}</td>
+			<td>{$vo.jumpurl}</td>
+			<td align="center">{$vo.time}</td>
+		</tr>
+	{foreachelse}
+		<tr bgcolor='#ffffff'>
+			<td colspan='7' height="25" align="center">暂无记录！</td>
+		</tr>
+	{/foreach}
+	</tbody>
+	<tbody>
+	<tr>
+      <td colspan="7" class="tdbg content_page" align="center"><a>共 <font id="total">{$total|default:0}</font> 条</a>&nbsp;<span id="pages">{$pages}</span></td>
+	</tr>
+	</tbody>
+</table>
+
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

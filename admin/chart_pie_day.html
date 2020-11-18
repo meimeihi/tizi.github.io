@@ -1,0 +1,54 @@
+<div id="chart_pie_day" style="width: 30%; height: 300px; margin: 10px 0;float:left;position: relative;"></div>
+<script type="text/javascript">
+$('#chart_pie_day').highcharts({
+	chart: {
+		plotBackgroundColor: null,
+		plotBorderWidth: null,
+		plotShadow: false
+	},
+	credits:{
+		enabled:false
+	},
+	title: {
+		text: '{$title|default:"今日访问比率"}',
+		align:'left',
+	},
+	legend: {
+		layout: 'vertical',
+		backgroundColor: '#FFFFFF',
+		verticalAlign: 'middle',
+		align: 'right'
+	},
+	tooltip: {
+	{literal}	pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'	{/literal}
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+				enabled: false
+			},
+			showInLegend: true
+		}
+	},
+	series: [{
+		type: 'pie',
+		name: '比例',
+		data: [
+		//数据
+		{foreach $todayArr as $k=> $vo}
+			{if $k=='百度'}
+			{
+				name: '{$k} {if $vo=='null'}0{else}{$vo}{/if}',
+				y: {$vo},
+				sliced: true,
+				selected: true
+			}
+			{else}
+			['{$k} {if $vo=='null'}0{else}{$vo}{/if}',{$vo}]{/if}{if $k!='其他'},{/if}
+		{/foreach}
+		]
+	}]
+});
+</script>

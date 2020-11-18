@@ -1,0 +1,72 @@
+{include file="header.html"}
+<body class="body-main">
+{include file="collect_head.html"}
+<div id="admin_right_b">
+<form action="?admin-collect-update" method="post" method="post" id="form" name="form"> 
+<table border="0" align="center" cellpadding="3" cellspacing="1" class="table_b">
+	<tr align='center'>
+	  <td align='center' width="30" class="title_bg">选择</td>
+	  <td width="30" align='center' class="title_bg">id</td>
+	  <td width="250" class="title_bg">规则名称</td>
+	  <td width="80" class="title_bg">模型</td>
+	  <td width="50" class="title_bg">类型</td>
+	  <td width="70" class="title_bg">每日上限(条/次)</td>
+	  <td width="50" class="title_bg">已采次数</td>
+	  <td width="60" align='center' class="title_bg">自动采集</td>
+	  <td width="80" align='center' class="title_bg">修改时间</td>
+	  <td width="110" align='center' class="title_bg">最近采集</td>
+      <td width="250" align='center' class="title_bg">管理</td>
+	  <td class="title_bg">&nbsp;</td>
+    </tr>
+{foreach $list as $vo}
+    <tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+	  <td height="25" align="center"><input name="ids[]" type="checkbox" value="{$vo.id}"></td>
+	  <td align="center">{$vo.id}</td>
+      <td>&nbsp;&nbsp;<a href="?admin-collect-edit-id-{$vo.id}" title="点击修改">{$vo.name}</a></td>
+	  <td align="center" title="{$vo.typename2}">{$vo.typename}</td>
+	  <td align="center">{$vo.modelname}</td>
+	  <td align="center">{if $vo['maxnum']}{$vo.maxnum}{else}<font class="c9">不限</font>{/if}/{if isset($vo.rules.collect_day_num)}{$vo.rules.collect_day_num}{else}1{/if}</td>
+	  <td align="center">{$vo.numlog|default:0}</td>
+	  <td align="center">{if $vo['status']}<a href="?admin-collect-status-id-{$vo.id}-sid-0" title="点击设为关闭"><font color="red">已开启</font></a>{else}<a href="?admin-collect-status-id-{$vo.id}-sid-1" title="点击设为开启"><font class="c9">已关闭</font></a>{/if}</td>
+	  <td align="center">{now_date_color($this->_var['vo']['addtime'],'m-d H:i')}</td>
+	  <td align="center">{if $vo['lasttime']}{now_date_color($this->_var['vo']['lasttime'],'Y-m-d H:i')}{else}<font class="c9">未采集</font>{/if}</td>
+      <td align="center"> <a href="javascript:" onclick="nodeTest('{$vo.id}','{$vo.name}');" title="测试规则" class="button button_small button_inverse">测试</a> <a href="javascript:" onclick="nodeAction('{$vo.id}','{$vo.name}');" title="采集" class="button button_small button_warning">采集</a> <a href="?admin-collect-edit-id-{$vo.id}" class="button button_small" title="修改规则">修改</a> <a href="javascript:" onclick="nodeExport('{$vo.id}','{$vo.name}');" class="button button_small button_success" title="导出规则">导出</a> <a href="?admin-collect-del-id-{$vo.id}" onclick='return confirm("确定删除?删除后不可恢复!");' class="button button_small button_remove">删除</a></td>
+	  <td>&nbsp;</td>
+    </tr>
+{foreachelse}
+	<tr bgcolor='#ffffff'>
+		<td colspan='12' height="25" align="center">暂无采集规则！</td>
+	</tr>
+{/foreach}
+	<tr>
+      <td colspan="12" height='30' class="tdbg">
+	  <span class="right"></span>&nbsp;&nbsp;<input name="chkall" type="checkbox" id="chkall" onclick=checkall(this.form) value="checkbox">&nbsp;<label for="chkall">全选</label>  
+      <button type="submit" class="button" onClick="if(confirm('确定要删除吗?')){ form.action='?admin-collect-delmore';}else{ return false}">批量删除</button>
+</td>
+    </tr>
+	<tr bgcolor='#ffffff'>
+		<td colspan='12' height='30'><font color="red">- 开启自动采集后，将在后端触发采集！<br>- 采集规则不限制模型，所以小说的句子也可以用于企业类型<br>- 如果修改节点新增网址，则可能需要清除自动采集缓存<br>- 更多采集规则，请前往官网获取</font></td>
+	</tr>
+	<tr>
+      <td colspan="12" class="tdbg content_page" align="center"><a>共 {$total} 条</a>&nbsp;{$pages}</td>
+	</tr>
+  </table>
+</form>
+<div class="runtime"></div>  
+</div>
+<script type="text/javascript">
+function nodeTest(nid,title){
+	top.art.dialog.open('?admin-collect-test-nid-'+nid,{ lock:true,opacity:0.1,title:'采集测试 ['+title+', ID:'+nid+']',id:'nodeTestifrm',width:'800px',height:'500px'});
+}
+function nodeExport(nid,title){
+	art.dialog.open('?admin-collect-export-nid-'+nid,{lock:true,opacity:0.1,title:'规则导出 ['+title+', ID:'+nid+']',id:'nodeTestifrm',width:'700px',height:'400px'});
+}
+function nodeAction(nid,title){
+	art.dialog.open('?admin-collect-run-nid-'+nid,{lock:true,title:'正在采集 ['+title+', ID:'+nid+']',id:'nodeActionifrm',width:'700px',height:'400px',close: function () {
+		window.location.reload();
+	}});
+}
+</script>
+{include file="footer.html"}
+</body>
+</html>

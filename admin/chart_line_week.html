@@ -1,0 +1,49 @@
+<div id="chart_line_week" style="min-width: 310px; height: 300px; margin: 10px auto;position: relative;"></div>
+<script type="text/javascript">
+$('#chart_line_week').highcharts({
+	chart: {
+		type: 'line',
+		style: {
+                'border-top':'1px solid #40AA52'
+            }
+	},
+	credits:{
+		enabled:false
+	},
+	title: {
+		text: '{$title|default:"最近10天蜘蛛访问走势图"}'
+	},
+	subtitle: {
+		text: '{$subtitle|default:"最近10天蜘蛛数量：$weekcount"}'
+	},
+	xAxis: {
+		{if $daynum>30}
+			labels: {
+				enabled: false
+			}
+		{else}
+			categories: [{foreach $weekKeys as $k=> $vo}'{$vo}'{if $vo!=date('Ymd')},{/if}{/foreach}]
+		{/if}
+	},
+	yAxis: {
+		title: {
+			text: ''
+		}
+	},
+	legend: {
+		layout: 'vertical',
+		backgroundColor: '#FFFFFF',
+		verticalAlign: 'middle',
+		align: 'right'
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [ {foreach $weekArr as $k=> $vo}{ name: '{$k}', data: [{$vo}] }{if $k!='其他'},{/if} {/foreach} ]
+});
+</script>

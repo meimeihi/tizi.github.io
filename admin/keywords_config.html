@@ -1,0 +1,169 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">关键词设置</a></li>
+</ul>
+<div id="admin_right_b">
+
+<form action="?admin-keywords-update" method="post">
+<table border="0" cellpadding="8" cellspacing="0" class="tableConfig">
+<tr class="tdbg item_title">
+			<td width="150" align="right"><i class="typcn typcn-cog"></i> 插入关键词</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">选择网站分组：</td>
+			<td><input type="hidden" name="con[insertkw_group]" id="insertkw_group_value" value="{$insertkw_group}" /><font id="insertkw_group_items" color="#ff6600">{if !$insertkw_group_name}未选择{else}{$insertkw_group_name}{/if}</font>&nbsp;&nbsp;<a href="javascript:" class="button button_small" onclick="select_group('insertkw');">点击选择</a> <span class="tips" style="color:red"><i class="typcn typcn-info"></i>选择开启此功能的网站分组</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">插入概率：</td>
+		  <td class="tdbg"><input name="con[insertkw_odds]" type="text" class="input" value="{$insertkw_odds|default:100}" size="12">
+		  <span class="tips">1到100的概率设置，100为100%</span>
+		  </td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">标题自动插入关键词：</td>
+		  <td><label><input type="radio" name="con[insertkw2title]" value="1" {if $insertkw2title} checked{/if}>开启</label>
+				<label><input type="radio" name="con[insertkw2title]" value="0" {if !$insertkw2title} checked{/if}>关闭</label>　<span>标题自动随机插入关键词,模板调用标签 {<a></a>$randkws}、{<a></a>$randkws1}、{<a></a>$randkws2}...</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">首页标题是否插入关键词：</td>
+		  <td><label><input type="radio" name="con[insertkw_index]" value="1" {if $insertkw_index} checked{/if}>是</label>
+				<label><input type="radio" name="con[insertkw_index]" value="0" {if !$insertkw_index} checked{/if}>否</label>　<span>说的是↑上面的功能，否则只插入内页</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">关键词unicode加密：</td>
+		  <td><label><input type="radio" name="con[kw_unicode]" value="1" {if $kw_unicode} checked{/if}>是</label>
+				<label><input type="radio" name="con[kw_unicode]" value="0" {if !$kw_unicode} checked{/if}>否</label>　<span>标题插入的关键词是否进行unicode加密</span></td>
+		</tr>
+		<tr class="tdbg">
+		  <td align="right" class="config_td_first">插入关键词个数：</td>
+		  <td class="tdbg"><input name="con[insertkw_num]" type="text" class="input" value="{$insertkw_num|default:1}" size="12">
+		  <span class="tips">插入多少个关键词，5个以内</span>
+		  </td>
+		</tr>
+		<tr>
+			<td align="right" class="config_td_first">插入的格式：</td>
+			<td><span class="c9">{<a></a>$title} 表示标题、{<a></a>$word}表示关键词，如：{<a></a>$title}_{<a></a>$word}<br>多个关键词如：{<a></a>$word}、{<a></a>$word1}、{<a></a>$word2}...<br>一行一条，随机调用，不填则随机插入位置<br></span>
+			<textarea name="con[insertkw_tpl]" class="inputs" style="width:350px;padding:1px;height:100px">{$insertkw_tpl}</textarea>
+			</td>
+		</tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr class="tdbg">
+	  <td width="130" align="center" class="tdbg">&nbsp;</td>
+      <td><button type="submit" id="dosave" class="button">保存设置</button></td>
+    </tr>
+	</table>
+</form>
+<div class="runtime"></div>  
+</div>
+<script id="group_list_scriptbox" type="text/px-templates">
+<form method="post">
+<table align="center" cellpadding="3" cellspacing="1" class="table_b">
+<tr>
+  <td width="50" align='center' class="title_bg">选择</td>
+  <td width="120" align='center' class="title_bg">分组名称</td>
+  <td width="120" align='center' class="title_bg">所属分类</td>
+  <td width="150" class="title_bg">域名</td>
+  <td width="70" align='center' class="title_bg">网站模式</td>
+</tr>
+<tbody id="group_list">
+<tr bgcolor='#fff2d5'>
+  <td align="center" height="25"><input type="checkbox" value="0" title="全部分组" onclick="select0(this);"  /></td>
+  <td align="center" style="color:#ff3300">全部分组</td>
+  <td colspan="3" style="color:#ff3300">&nbsp;&nbsp;勾选本项则全部分组都开启，不管是新添加的还是旧的</td>
+ </tr>
+{foreach $group_list as $vo}
+	<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+	  <td align="center" height="25"><input type="checkbox" value="{$vo.id}" title="{$vo.name}"/></td>
+	  <td align="center">{$vo.name}</td>
+	  <td align="center">{$vo.typename}</td>
+	  <td>{$vo.domain}</td>
+	  <td align="center">{if $vo.domain_mod==2}单域名{else}泛域名{/if}</td>
+	 </tr>
+	{foreachelse}
+	<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+		<td align="center" colspan='5' height="25">请先添加网站分组！</td>
+	</tr>
+	{/foreach}
+</tbody>
+<tr bgcolor='#ffffff' style="border-top:1px solid #eee">
+	<td colspan="5">
+		<label><input name="chkall" type="checkbox" id="chkall" onclick=checkall(this.form) value="checkbox"> 全选/反选</label>
+		<button type="button" class="button" onclick="select_ok();">确定选择</button>
+	</td>
+</tr>
+</table>
+</form>
+</script>
+
+<script type="text/javascript">
+var dialog;
+var body=$('#group_list_scriptbox').html();
+var thistype='';
+function select0(_this){
+	if(_this.checked){
+		$('#group_list input:checkbox').each(function(i) {
+			if(0!=$(this).val()){
+				$(this).attr('disabled',true);
+				$(this).attr('checked',false);
+			}
+		});
+		_this.checked=true;
+    }else{
+		$('#group_list input:checkbox').each(function(i) {
+			if(0!=$(this).val()){
+				$(this).attr('disabled',false);
+			}
+		});
+		_this.checked=false;
+	}
+}
+function select_group(type){
+	thistype=type;
+	var typevalue=$('#'+type+'_group_value').val();
+	dialog=art.dialog({ 
+		content:'<div id="group_list_box">'+body+'</div>',
+		init: function(){
+			console.log('-------------------'+typevalue);
+			var select0=false;
+			$('#group_list input:checkbox').each(function(i) {
+				if(typevalue.indexOf($(this).val()+',')>-1 || typevalue.indexOf(','+$(this).val())>-1 || typevalue==$(this).val()){
+					$(this).attr('checked',true);
+					if($(this).val()==0){
+						select0=true;
+					}
+				}
+				if(select0 && $(this).val()!=0){
+					$(this).attr('disabled',true);
+				}
+			});
+		},
+		lock:true,opacity:0.3,title:'选择开启此功能的网站分组',id:'rifrm'+type
+	});
+	dialog.show();
+}
+function select_ok(){
+	var rb=new Array();
+	var rbtitle=new Array();
+	$('#group_list input:checkbox:checked').each(function(i) {
+		rb[i]=$(this).val();
+		rbtitle[i]=$(this).attr('title');
+	});
+	var rbvalue=rb.join(',');
+	var rbtitles=rbtitle.join(',');
+	if(rbvalue==''){
+		rbtitles='未选择';
+	}
+	if(rbvalue=='0'){
+		rbtitles='全部分组';
+	}
+	$('#'+thistype+'_group_items').html(rbtitles);
+	$('#'+thistype+'_group_value').val(rbvalue);
+	dialog.hide();
+}
+</script>
+{include file="footer.html"}
+</body>
+</html>

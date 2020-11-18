@@ -1,0 +1,49 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">TKDB调用模板</a></li>
+</ul>
+<style type="text/css">
+.tplpage dl {border: 1px dotted #ccc;background-color: #eee;float: left;width: 120px;padding: 5px;margin: 0 15px 15px 0;text-align: center;}
+.tplpage dl:hover{ border-color:#2288cc}
+.tplpage dt {padding: 8px 0;color: #555;}
+.tplpage dt p {padding-top: 5px;color: #999;}
+.tplpage dd {color: #ccc;}
+.tplpage dl.default{ border-color:#ff6600;background-color:#fff9f0;}
+</style>
+<div id="admin_right_b">
+
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i>TKDB调用模板（一个模型一个设置） (<span class="tips" style="color:red">即：title、keywords、description、内容调用，注：如果模型未在这里建立内容模板，则使用默认模板</span>)</td>
+</tr>
+<tr>
+	<td colspan="5">
+	<div class="tplpage">
+	<dl class="default">
+		<dt><strong>默认的调用配置</strong><p>default</p></dt>
+		<dd><a class="button button_small button_warning" href="javascript:" onclick="edit('default','默认的调用配置');">点击修改</a></dd>
+	  </dl>
+	{foreach $class_list as $k=>$vo}
+	<dl>
+        <dt><strong>{$vo.name}</strong><p>{$vo.dirname}</p></dt>
+        <dd>{if $vo.isset}<a class="button button_small button_success" href="javascript:" onclick="edit('{$vo.dirname}','{$vo.name}');">修改</a>&nbsp;&nbsp;<a href="?admin-arctype-tplrules_del-dir-{$vo.dirname}" class="button button_small button_remove" onclick='return confirm("确定删除?删除后不可恢复!");'>删除</a>{else}<a class="button button_small" href="javascript:" onclick="edit('{$vo.dirname}','{$vo.name}');">未设置，点击设置</a>{/if}</dd>
+      </dl>
+	{/foreach}</div>
+	</td>
+</tr>
+</table>
+<script type="text/javascript">
+function edit(id,typename){
+	var title=id?'修改':'添加';
+	art.dialog.open('?admin-arctype-tplrules_edit-dir-'+id,{
+		lock:true,opacity:0.3,title:title+'内容调用模板【'+typename+'】',id:'openifrm',width:'600px',height:'420px',close: function () {
+		window.location.reload();
+	}});
+}
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

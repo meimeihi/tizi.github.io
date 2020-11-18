@@ -1,0 +1,101 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">{$title}管理</a></li>
+	<li class="tips">注：文件里每行放一条记录，不要超过1万个</li>
+</ul>
+<div id="admin_right_b">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+<tbody>
+{if ACTION_NAME=='domain_prefix'}<tr>
+<td colspan=2><div class="divtips">提示：如果不设置这里，系统将自动生成随机的泛域名前缀</div></td>
+</tr>{/if}
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> {$title}信息</td>
+	<td></td>
+</tr>
+<tr>
+  <td width="150" align="right" class="config_td_first">当前数量：</td>
+  <td><font color="blue"><span id="count">{$count}</span></font></td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">文件大小：</td>
+  <td><span id="filesize">{$filesize}</span></td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">修改时间：</td>
+  <td><span id="filemtime">{$filemtime}</span></td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">保存路径：</td>
+  <td>{$input_file}<input type="hidden" id="input_file" value="{$input_file}" /> <button type="button" class="button button_small button_success download">点击下载</button></td>
+</tr>
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 上传{$title}</td>
+	<td></td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">上传文件：</td>
+  <td>
+	<div id="up{$input_name}" class="uploader">
+		<div class="uploader-list"></div>
+		<div class="uploader-btns">
+			<div class="picker">选择文件</div>
+			<button type="button" class="uploadbtn button button_grey">开始上传</button>
+		</div>
+	</div>
+	<div style="padding-top:10px;color:red">上传将覆盖原有文件，也可以用下面的在线编辑</div>
+  </td>
+</tr>
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> {$title}编辑</td>
+	<td></td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">编辑：</td>
+  <td><textarea id="txt_data" class="inputs" style="height:200px;width:450px;padding:1px;">{$txt_data|to_utf8}</textarea>
+	</td>
+</tr>
+<tr>
+  <td align="right"></td>
+  <td><button type="submit" id="dosave" class="button">保存文件</button></td>
+</tr>
+</tbody>
+</table>
+<div class="runtime"></div>  
+</div>
+<script type="text/javascript">
+$(function() {
+    upload('#up{$input_name}','txt','{$input_name}','',function(){
+		successFunc($('#input_file').val());
+	});
+});
+$('button.download').click(function(){
+	$.download('?admin-txtdata-download','f={$file_encode}');
+});
+function successFunc(file){
+	alert('上传成功');
+	page_loading();
+	window.location.reload();
+}
+$("#dosave").click(function(){
+	showDialog();
+	$.ajax({
+		type:"post",
+		url:"?admin-txtdata-savefile-f-{$file_encode}",
+		data:'data='+$('#txt_data').val(),
+		dataType:'json',
+		success:function(data){
+			if(data.status==1){
+				showAlert('success','恭喜你，保存成功！',"?admin-txtdata-{$action}");
+			}else{
+				showAlert('error',data.info);
+			}
+		}
+	});
+ return false;
+});
+</script>
+{include file="footer.html"}
+</body>
+</html>

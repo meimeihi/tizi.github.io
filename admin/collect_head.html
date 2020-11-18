@@ -1,0 +1,26 @@
+<ul id="admin_sub_title">
+	<li {if ACTION_NAME=='index'}class="sub"{else}class="unsub"{/if}><a href="{url('admin/collect/index')}">规则管理</a></li>
+	<li {if ACTION_NAME=='edit'}class="sub"{else}class="unsub"{/if}><a href="javascript:" onclick="addmodel();">{if $id==0}添加{else}编辑{/if}规则</a></li>
+	<li class="unsub"><a href="javascript:" onclick="nodeImport();">导入规则</a></li>
+</ul>
+<script type="text/javascript">
+function nodeImport(){
+	art.dialog.open('?admin-collect-import',{lock:true,opacity:0.1,title:'导入规则',id:'nodeTestifrm',width:'700px',height:'400px'});
+}
+function addmodel(){
+	art.dialog({
+		id:'ctype',
+		lock:true,
+		title:'选择规则类型',
+		content:'规则类型：<select name="model" id="model"><option value="title">文章标题</option><option value="typename">子页标题</option><option value="pic">图片地址</option><option value="content">句子段落</option><option value="body">整篇内容</option></select>',
+		ok: function(){
+				var m=$("#model option:selected").val();
+				if(m=='content'){
+					m='body-split-1';
+				}
+				location.href="?admin-collect-edit-model-"+m;
+			}
+	});
+	return false;
+}
+</script>

@@ -1,0 +1,48 @@
+{include file="header.html"}
+<div style="padding:0 10px 10px 10px;">
+	<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+		<tbody>
+			<tr class="tdbg item_title">
+				<td align="right"><i class="typcn typcn-cog"></i> 上传<font class="title"></font></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right">所属分类：</td> 
+				<td align="left"><select name="arctype" id="arctype" onchange="change_type(this.value);">
+				{foreach $class_list as $k=>$vo}
+					<option value="{$vo.dirname}">{$vo.name}</option>
+				{/foreach}
+					</select>
+				</td>
+			</tr>
+			<tr>
+			  <td align="right" width="150" class="config_td_first">上传文件：</td>
+			  <td id="updiv">
+				<div id="up{$input_name}" class="uploader">
+					<div class="uploader-list"></div>
+					<div class="uploader-btns">
+						<div class="picker">选择文件</div>
+						<button type="button" class="uploadbtn button button_grey">开始上传</button>
+					</div>
+				</div>
+				<div style="padding-top:10px;color:red">上传<font class="title"></font>txt，支持多选</div>
+			  </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+var type=top.art.dialog.data('type');
+$("#arctype").find("option[value='"+type+"']").attr("selected",true);
+upload('#up{$input_name}','txt',null,'{$input_name}/'+$('#arctype').val());
+$('.title').html(top.art.dialog.data('title'));
+var html=$('#updiv').html();
+var i=1;
+
+function change_type(value){
+	var newhtml=html.replace('up{$input_name}','up{$input_name}'+i);
+	$('#updiv').html(newhtml);
+	upload('#up{$input_name}'+i,'txt',null,'{$input_name}/'+value);
+	i++;
+}
+</script>

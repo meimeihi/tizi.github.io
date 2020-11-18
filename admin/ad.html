@@ -1,0 +1,39 @@
+{include file="header.html"}
+<body class="body-main">
+<div class="admin_notice"><font color="#990000">{literal}广告调用标签：{$myad.标识} ，如：标识是indexad, 则调用标签是{$myad.indexad} {/literal}</font>
+</div>
+<br>
+<ul id="admin_sub_title">
+	<li class="sub">广告管理</li>
+	<li class="unsub"><a href="{url('admin/Ad/edit')}">添加广告</a></li>
+</ul>
+
+<div id="admin_right_b">
+
+  <table border="0" align="center" cellpadding="3" cellspacing="1" class="table_b">
+	<tr>
+	  <td width="80" align='center' class="title_bg">id</td>
+      <td class="title_bg" width="180">标识(唯一)</td>
+	  <td align='center' class="title_bg">广告说明</td>
+      <td width="150" align='center' class="title_bg">管理</td>
+    </tr>
+{foreach $list as $vo}
+    <tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+	  <td align="center" height="25">{$vo.id}</td>
+	  <td style="padding-left:20px">{$vo.mark}</td>
+	  <td style="padding-left:20px">{$vo.name}</td>
+      <td align="center"><a href="?admin-Ad-preview-id-{$vo.id}" target='_blank'>预览</a> <a href="?admin-Ad-edit-id-{$vo.id}">编辑</a> <a href="?admin-Ad-del-id-{$vo.id}" onclick='return confirm("确定删除?删除后不可恢复!");'>删除</a></td>
+    </tr>
+{foreachelse}
+	<tr bgcolor='#ffffff'>
+		<td colspan='4' height="25" align="center">暂无广告！</td>
+	</tr>
+{/foreach}
+
+  </table>
+
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

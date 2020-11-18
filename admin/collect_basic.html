@@ -1,0 +1,26 @@
+<tr>
+	<td class="w100" align="right">规则名称：</td> 
+	<td align="left">
+	<input type="text" name="r[name]" class="input"  value="{$name}" style="width:200px"> <font color="red">*</font> 
+	</td>
+</tr>
+<tr>
+  <td align="right">所属模型：</td>
+  <td><select name="arctype[]" multiple="multiple" class="multiple">
+  {foreach $classlist as $vo}
+	<option value="{$vo.id}" {if in_array($vo['id'],$arctypes)}selected="selected"{/if}>{$vo.name}</option>
+  {/foreach}
+  </select>(可按住 CTRL 多选)</td>
+</tr>
+<tr>
+	<td class="w100" align="right">采集上限：</td> 
+	<td align="left">
+	<input type="text" name="r[maxnum]" class="input"  value="{$maxnum|default:0}" style="width:70px"> 个，也是自动采集的每日上限，0为不限制  <font color="red">*</font> 
+	</td>
+</tr>
+
+<tr>
+  <td align="right">每日采集次数上限：</td>
+  <td><input name="rules[collect_day_num]" type="text" class="input" value="{$rules.collect_day_num|default:0}" size="5"> <span>次，即每天的采集次数，匹配的网址全部采集后才算一次，0为不限制  <font color="red">*</font> </span>
+  </td>
+</tr>

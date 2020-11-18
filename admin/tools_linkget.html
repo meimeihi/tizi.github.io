@@ -1,0 +1,63 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">链接提取工具</a></li>
+	<li class="tips"></li>
+</ul>
+<div id="admin_right_b">
+<form method="post">
+<table border="0" align="center" cellpadding="8" cellspacing="0" class="tableConfig">
+<tbody>
+<tr>
+  <td align="right" width="150">功能说明：</td>
+  <td>
+	<div style="color:red">可提取远程页面的所有链接</div>
+  </td>
+</tr>
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 提取设置</td>
+	<td></td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">页面http地址：</td>
+  <td><input name="url" type="text" style="text-align:left" class="input" value="http://" size="60"> 填写需要提取的页面http地址</td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">提取过滤：</td>
+  <td><label><input type="radio" name="type" value="0">全部链接</label>
+		<label><input type="radio" name="type" value="1" checked>站内链接</label></td>
+</tr>
+<tr>
+  <td align="right"></td>
+  <td><button type="button" id="ssbtn" class="button">开始提取</button></td>
+</tr>
+<tr class="tdbg">
+  <td align="right">返回结果：</td>
+  <td><textarea name="list" type="text" id="returnmsg" style="height:250px;width:58%;">请先提取</textarea></td>
+</tr>
+
+</tbody>
+</table>
+</form>
+<div class="runtime"></div>  
+</div>
+<script type="text/javascript">
+$("#ssbtn").click(function(){
+	var _this=this;
+	$(_this).html('正在提取...').attr('disabled',true);
+	$('#returnmsg').html('正在提取...');
+	$.ajax({
+		type: "POST",
+		dataType: "html",
+		url: '{url('admin/tools/linkget')}',
+		data:$("form").serialize(),
+		success: function (d) {
+			$(_this).html('开始提取').attr('disabled',false);
+			$('#returnmsg').html(d);
+		}
+	});
+});
+</script>
+{include file="footer.html"}
+</body>
+</html>

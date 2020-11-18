@@ -1,0 +1,58 @@
+{include file="header.html"}
+<style type="text/css">
+img{
+	max-width:500px;
+}
+.title_bg{ text-align:right;color:#333 }
+td .img {
+  max-width: 500px;
+  vertical-align: middle;
+}
+</style>
+<div style="padding:0 10px 10px 10px;">
+<fieldset>
+	<legend title="点击展开/收起">匹配地址</legend>
+	<table width="98%" border="0" cellpadding="5" cellspacing="1" bgcolor="#eeeeee">
+		<tr bgcolor="#ffffff">
+			<td align="right" width="100" class="title_bg">匹配网址：</td>
+			<td align="left">
+				<div style="max-height:150px;overflow:auto;background:#eee;max-width: 600px;">
+					<pre style="padding:0 10px;margin:0"><?php echo implode($this->_var['listurlarr']['url'],"\r\n");?></pre>
+				</div>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+<fieldset>
+	<legend title="点击展开/收起">图片获取</legend>
+	<table width="98%" border="0" cellpadding="5" cellspacing="1" bgcolor="#eeeeee">
+		<tr bgcolor="#ffffff">
+			<td align="right" width="100" class="title_bg">测试提取地址：</td> 
+			<td align="left"><font color="#990000">{$listurl}</font></td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td align="right" class="title_bg">图片获取：</td> 
+			<td align="left">
+				<div style="height:250px;overflow:auto;background:#eee;max-width: 600px;">
+					<pre style="padding:0 10px;margin:0"><?php echo implode($this->_var['imgArr'],"\r\n");?></pre>
+				</div>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+<fieldset>
+	<legend class="c9" title="点击展开/收起">返回HTML</legend>
+	<table width="98%" border="0" cellpadding="3" cellspacing="2" class="none">
+		<tr>
+			<td><textarea style="width:100%;height:160px">{$html|htmlspecialchars}</textarea></td> 
+		</tr>
+	</table>
+</fieldset>
+</div>
+<script type="text/javascript">
+$("fieldset legend").click(function(){
+	$(this).parent().find("table:first").toggle();
+	$(this).toggleClass("c9");
+});
+
+</script>

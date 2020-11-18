@@ -1,0 +1,63 @@
+{include file="header.html"}
+<body class="body-main">
+
+<ul id="admin_sub_title">
+	<li class="sub"><a>修改密码</a></li>
+</ul>
+<div id="admin_right_b">
+  <table width="98%" border="0" align="center" cellpadding="3" cellspacing="0" class="tableConfig">
+  <form method="post">
+    <tr class="tdbg">
+      <td align="right" class="config_td_first">用户名：</td>
+      <td><input name="name" id="name" type="text" class="input" value="{$name}" style="width:200px;">　<span>支持中文，不包含特殊符号</span></td>
+    </tr>
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">昵称：</td>
+      <td><input name="nick" id="nick" type="text" class="input" value="{$nick}" style="width:200px;">　<span>支持中文，不包含特殊符号</span></td>
+    </tr>
+    <tr class="tdbg">
+      <td align="right" class="config_td_first">旧密码：</td>
+      <td><input name="pass" class="input" id="pass" title="输入旧密码" type="password" style="width:200px;">　<span>输入旧密码</span></td>
+    </tr>
+
+	<tr class="tdbg">
+      <td align="right" class="config_td_first">新密码：</td>
+      <td><input name="pass1" class="input" id="pass1" title="输入新密码" type="password" style="width:200px;">　<span>输入新密码</span></td>
+    </tr>
+	
+    <tr class="tdbg">
+	  <td>&nbsp;</td>
+      <td><button type="button" id="dosave" class="button">保存</button></td>
+    </tr>
+	</form>
+  </table>
+<script type='text/javascript'>
+$(function() {
+	$("#dosave").click(function(){
+		if($('#pass').val()==''){ showAlert('error','旧密码不能为空！');return false;}
+		if($('#pass1').val()==''){ showAlert('error','新密码不能为空！');return false;}
+		showDialog();
+		$.ajax({
+			type:"post",
+			url:"{url('admin/master/update')}",
+			data:$("form").serialize(),
+			dataType:'json',
+			timeout:28000,
+			global:false,
+			success:function(data){
+				if(data.status==1){
+					showAlert('success','恭喜你，修改成功');
+				}else{
+					showAlert('error',data.info);
+				}
+			}
+		});
+	 return false;
+	});
+});
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

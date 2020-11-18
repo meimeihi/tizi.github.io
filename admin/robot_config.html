@@ -1,0 +1,241 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">蜘蛛设置</a></li>
+</ul>
+<div id="admin_right_b">
+
+<form action="?admin-robot-update" method="post">
+<table border="0" cellpadding="8" cellspacing="0" class="tableConfig">
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 基本设置</td>
+	<td></td>
+</tr>
+<tr>
+	<td width="120" align="right" class="config_td_first">蜘蛛访问记录开关：</td>
+	<td><label><input type="radio" name="con[web_robot_log]" value="1" {if $web_robot_log} checked{/if}>开启</label>
+	<label><input type="radio" name="con[web_robot_log]" value="0" {if !$web_robot_log} checked{/if}>关闭</label>
+	</td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">访问css、js、图片的蜘蛛：</td>
+	<td><label><input type="radio" name="con[robot_pic]" value="0" {if !$robot_pic} checked{/if}>不处理</label>
+	<label><input type="radio" name="con[robot_pic]" value="1" {if $robot_pic==1} checked{/if}>不记录</label>
+	<label><input type="radio" name="con[robot_pic]" value="2" {if $robot_pic==2} checked{/if}>直接屏蔽</label>
+	</td>
+</tr>
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 蜘蛛强引设置</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">蜘蛛强引开关：</td>
+	<td><label><input type="radio" name="con[robot_redirect_open]" value="1" {if $robot_redirect_open} checked{/if}>开启</label>
+	<label><input type="radio" name="con[robot_redirect_open]" value="0" {if !$robot_redirect_open} checked{/if}>关闭</label>
+	<span class="tips" style="color:red"><i class="typcn typcn-info"></i>开启后将强制把蜘蛛劫持引到外链上，慎用，蜘蛛会变少</span>
+	</td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">指定网站分组：</td>
+	<td><input type="hidden" name="con[robot_redirect_group]" id="robot_redirect_group_value" value="{$robot_redirect_group}" /><font id="robot_redirect_group_items" color="#ff6600">{if !$robot_redirect_group_name}未选择{else}{$robot_redirect_group_name}{/if}</font>&nbsp;&nbsp;<a href="javascript:" class="button button_small" onclick="select_group('robot_redirect');">点击选择</a> <span class="tips" style="color:red"><i class="typcn typcn-info"></i>选中的分组才进行强引</span></td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">指定蜘蛛：</td>
+	<td><input type="hidden" name="con[robot_redirect_items]" id="rb_value" value="{$robot_redirect_items_v}" /><font id="rb_items" color="#ff6600">{if !$robot_redirect_itemsname}不限制{else}{$robot_redirect_itemsname}{/if}</font>&nbsp;&nbsp;<a href="javascript:" class="button button_small" onclick="select_robots();">点击选择</a> <span class="tips" style="color:red"><i class="typcn typcn-info"></i>选中的蜘蛛才进行强引，一个不选则全部强引</span></td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">权重传递：</td>
+	<td><label><input type="radio" name="con[robot_redirect_weight]" value="301" {if $robot_redirect_weight=='301'} checked{/if}>是</label>
+	<label><input type="radio" name="con[robot_redirect_weight]" value="302" {if !$robot_redirect_weight or $robot_redirect_weight=='302'} checked{/if}>否</label>
+	</td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">蜘蛛强引概率：</td>
+  <td class="tdbg"><input name="con[robot_redirect_odds]" type="text" class="input" value="{$robot_redirect_odds|default:60}" size="12">
+  <span class="tips">1到100的概率设置，100为100%</span>
+  </td>
+</tr>
+<tr>
+	<td align="right" class="config_td_first">强引外链类型：</td>
+	<td><label><input type="radio" name="con[robot_redirect_type]" value="system" {if !$robot_redirect_type or $robot_redirect_type=='system'} checked{/if}>系统外链</label>
+	<label><input type="radio" name="con[robot_redirect_type]" value="custom" {if $robot_redirect_type=='custom'} checked{/if}>自定义外链</label>
+	</td>
+</tr>
+<tr class="list">
+  <td align="right" class="config_td_first">自定义强引外链：</td>
+  <td>↑↑↑上面的类型需设置为自定义外链，1000条以内<br><textarea name="robot_redirect_data" type="text" style="height:250px;width:600px;">{$robot_redirect_data}</textarea></td>
+</tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr class="tdbg">
+	  <td width="130" align="center" class="tdbg">&nbsp;</td>
+      <td><button type="submit" id="dosave" class="button">保存设置</button></td>
+    </tr>
+	</table>
+</form>
+<div class="runtime"></div>  
+</div>
+<div style="display:none">
+<script id="robot_list_box" type="text/px-templates">
+<form method="post">
+<table align="center" cellpadding="8" cellspacing="1" id="robot_list">
+		<tr align="center">
+		  <td width="110" align='center' class="title_bg">蜘蛛</td>
+		  <td width="110" align='center' class="title_bg">蜘蛛</td>
+		  <td width="110" align='center' class="title_bg">蜘蛛</td>
+		</tr>
+<?php $i=1; ?>
+{foreach $robot_list as $key=>$vo}
+<?php if($i==1):?><tr><?php endif; ?>
+	<td align="right"><label for="in_{$key}">{$vo}</label><input type="checkbox" title="{$vo}" name="robot_redirect_items[]" id="in_{$key}" value="{$key}" {if $robot_redirect_items && in_array($key,$robot_redirect_items)} checked{/if} /></td>
+		<?php if($i!=$this->_var['list_last'] and ($i%3==0)):?>
+			</tr><tr>
+		<?php endif; ?>
+	<?php $i++; ?>
+{/foreach}
+<tr bgcolor='#ffffff' style="border-top:1px solid #eee">
+	<td colspan="4">
+		<label><input name="chkall" type="checkbox" id="chkall" onclick=checkall(this.form) value="checkbox"> 全选/反选</label>
+		<button type="button" class="button" onclick="select_ok();">确定选择</button>
+	</td>
+</tr>
+</table>
+</form>
+</script>
+</div>
+<script type="text/javascript">
+var dialog;
+function select_robots(){
+	if($('#robot_list').length<1){
+		dialog=art.dialog({ content:$('#robot_list_box').html(),lock:true,opacity:0.3,title:'选择蜘蛛',id:'rifrm'});
+	}else{
+		dialog.show();
+	}
+}
+function select_ok(){
+	var rb=new Array();
+	var rbtitle=new Array();
+	$('#robot_list input:checkbox:checked').each(function(i) {
+		rb[i]=$(this).val();
+		rbtitle[i]=$(this).attr('title');
+	});
+	var rbvalue=rb.join(',');
+	var rbtitles=rbtitle.join(',');
+	if(rbvalue==''){
+		rbvalue='不限制';
+	}
+	$('#rb_items').html(rbtitles);
+	$('#rb_value').val(rbvalue);
+	dialog.hide();
+}
+</script>
+
+<script id="group_list_scriptbox" type="text/px-templates">
+<form method="post">
+<table align="center" cellpadding="3" cellspacing="1" class="table_b">
+<tr>
+  <td width="50" align='center' class="title_bg">选择</td>
+  <td width="120" align='center' class="title_bg">分组名称</td>
+  <td width="120" align='center' class="title_bg">所属分类</td>
+  <td width="150" class="title_bg">域名</td>
+  <td width="70" align='center' class="title_bg">网站模式</td>
+</tr>
+<tbody id="group_list">
+<tr bgcolor='#fff2d5'>
+  <td align="center" height="25"><input type="checkbox" value="0" title="全部分组" onclick="select0(this);"  /></td>
+  <td align="center" style="color:#ff3300">全部分组</td>
+  <td colspan="3" style="color:#ff3300">&nbsp;&nbsp;勾选本项则全部分组都开启，不管是新添加的还是旧的</td>
+ </tr>
+{foreach $group_list as $vo}
+	<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+	  <td align="center" height="25"><input type="checkbox" value="{$vo.id}" title="{$vo.name}"/></td>
+	  <td align="center">{$vo.name}</td>
+	  <td align="center">{$vo.typename}</td>
+	  <td>{$vo.domain}</td>
+	  <td align="center">{if $vo.domain_mod==2}单域名{else}泛域名{/if}</td>
+	 </tr>
+	{foreachelse}
+	<tr onmouseover=this.bgColor='#EDF8FE'; onmouseout=this.bgColor='#ffffff'; bgcolor='#ffffff'>
+		<td align="center" colspan='5' height="25">请先添加网站分组！</td>
+	</tr>
+	{/foreach}
+</tbody>
+<tr bgcolor='#ffffff' style="border-top:1px solid #eee">
+	<td colspan="5">
+		<label><input name="chkall" type="checkbox" id="chkall" onclick=checkall(this.form) value="checkbox"> 全选/反选</label>
+		<button type="button" class="button" onclick="select_group_ok();">确定选择</button>
+	</td>
+</tr>
+</table>
+</form>
+</script>
+
+<script type="text/javascript">
+var dialog;
+var body=$('#group_list_scriptbox').html();
+var thistype='';
+function select0(_this){
+	if(_this.checked){
+		$('#group_list input:checkbox').each(function(i) {
+			if(0!=$(this).val()){
+				$(this).attr('disabled',true);
+				$(this).attr('checked',false);
+			}
+		});
+		_this.checked=true;
+    }else{
+		$('#group_list input:checkbox').each(function(i) {
+			if(0!=$(this).val()){
+				$(this).attr('disabled',false);
+			}
+		});
+		_this.checked=false;
+	}
+}
+function select_group(type){
+	thistype=type;
+	var typevalue=$('#'+type+'_group_value').val();
+	dialog=art.dialog({ 
+		content:'<div id="group_list_box">'+body+'</div>',
+		init: function(){
+			console.log('-------------------'+typevalue);
+			var select0=false;
+			$('#group_list input:checkbox').each(function(i) {
+				if(typevalue.indexOf($(this).val()+',')>-1 || typevalue.indexOf(','+$(this).val())>-1 || typevalue==$(this).val()){
+					$(this).attr('checked',true);
+					if($(this).val()==0){
+						select0=true;
+					}
+				}
+				if(select0 && $(this).val()!=0){
+					$(this).attr('disabled',true);
+				}
+			});
+		},
+		lock:true,opacity:0.3,title:'选择开启此功能的网站分组',id:'rifrm'+type
+	});
+	dialog.show();
+}
+function select_group_ok(){
+	var rb=new Array();
+	var rbtitle=new Array();
+	$('#group_list input:checkbox:checked').each(function(i) {
+		rb[i]=$(this).val();
+		rbtitle[i]=$(this).attr('title');
+	});
+	var rbvalue=rb.join(',');
+	var rbtitles=rbtitle.join(',');
+	if(rbvalue==''){
+		rbtitles='未选择';
+	}
+	if(rbvalue=='0'){
+		rbtitles='全部分组';
+	}
+	$('#'+thistype+'_group_items').html(rbtitles);
+	$('#'+thistype+'_group_value').val(rbvalue);
+	dialog.hide();
+}
+</script>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,142 @@
+{include file="header.html"}
+<body class="body-main">
+<link href="static/css/collect.css" rel="stylesheet" type="text/css" />
+{include file="collect_head.html"}
+<style type="text/css">
+
+</style>
+<div id="admin_right_b">
+
+<form action="{'admin/collect/Update'|url}" method="post" autocomplete="off">
+	<input type="hidden" name="r[id]" value="{$id|default:0}">
+	<input type="hidden" name="r[model]" value="body">
+	<div id="col-content">
+		<div class="col-content" id="tab0" style="height:auto; display:block;" >
+			<div class="common-form">
+				<fieldset>
+					<legend>规则基本信息</legend>
+					<table width="98%" border="0" cellpadding="5" cellspacing="0">
+					<tbody class="co_item">
+						{include file="collect_basic.html"}
+						<tr>
+							<td align="right">类型：</td> 
+							<td>
+								<select name="r[split]">
+									<option value="1" {if $split}selected="selected"{/if}>分割成句子</option>
+									<option value="0" {if !$split}selected="selected"{/if}>整篇内容</option>
+								</select></td>
+						</tr>
+					</tbody>
+					</table>
+				</fieldset>
+				
+				<fieldset>
+					<legend>列表页配置</legend>
+					<table width="98%" border="0" cellpadding="5" cellspacing="0">
+						<tbody class="co_item">
+						<tr>
+								<td align="right" class="w100">匹配网址：<br>(一行填写一条)</td>
+								<td colspan='3'><textarea name="rules[regxurl_list]" class="textarea" style="width:600px;height:100px;">{$rules.regxurl_list|htmlspecialchars}</textarea></td>
+						</tr>
+						<tr>
+							<td align="right">&nbsp;</td>
+							<td colspan="3">
+							<span class="c9"><font color="blue">http://xbwseo.com/a/list_<font color="red">{<l>p,1,5,1}</font>.html</font> <br><br><font color="red">{<l>p,1,5,1}</font> 表示分页，参数：p后面的数字分别代表开始、结束、递增/减值，即 <font color="red">{p,开始,结束,递增/减值}</font></span>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</fieldset>
+				<fieldset>
+					<legend>内容获取</legend>
+					<table width="98%" border="0" cellpadding="5" cellspacing="0">
+						<tbody class="co_item">
+						<tr>
+							<td align="right" class="w100"><font color="red">*</font>网址匹配：</td>
+							<td colspan="3">
+							 <input type="text" name="rules[regxurl_show]" class="input" style="width:500px" value="{$rules.regxurl_show}" />
+							</td>
+						</tr>
+						<tr>
+							<td align="right">&nbsp;</td>
+							<td colspan="3">
+							<span class="c9">如：http://x.com/html/<font color="red">(d)</font>.html ，通配符号：<font color="red">(*)</font>（任意字符）、<font color="red">(w)</font>（数字字母下划线）、<font color="red">(d)</font>（数字）</span>
+							</td>
+						</tr>
+						</tbody>
+						<tbody class="co_item">
+						<tr>
+						  <td align="right">测试地址：</td>
+						  <td colspan='3'><input name="rules[testurl_show]" type="text" class="input"  style="width:500px" value="{$rules.testurl_show}"> (<span>可填，不填则系统自动随机获取一条</span>)</td>
+						</tr>
+						<tr class="tr_host_area">
+						  <td align="right">内容截取规则：</td>
+						  <td class="w300"><textarea name="rules[body_area_regx]" class="textarea" style="width:500px;height:120px;">{$rules.body_area_regx|htmlspecialchars}</textarea></td>
+						  <td colspan='2'>正则，如：<font color="blue">&ltdiv class="abc"[^>]+&gt(.*)&lt/div&gt</font></td>
+						</tr>
+						</tbody>
+					</table>
+				</fieldset>
+				<fieldset>
+					<legend>过滤配置</legend>
+					<table width="98%" border="0" cellpadding="5" cellspacing="0">
+						<tbody class="co_item">
+						<tr>
+						  <td align="right">内容最小长度：</td>
+						  <td><input name="rules[min_num]" type="text" class="input" value="{$rules.min_num|default:30}" size="5"> <span>一个中文字的长度为2<font color="red">*</font> </span>
+						  </td>
+						</tr>
+						<tr>
+								<td align="right" class="w100">过滤词语：<br>(一行填写一个)</td>
+								<td colspan='3'><textarea name="rules[sift_words]" class="textarea" style="width:800px;height:200px;">{$rules.sift_words|htmlspecialchars}</textarea></td>
+						</tr>
+						<tr>
+							<td align="right">&nbsp;</td>
+							<td colspan="3">
+								<font color="red">包含以上词语的内容自动过滤，如果只是删除则前面每个词加*号</font>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</fieldset>
+				<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" style="margin-top:20px;">
+					<tr class="tdbg">
+					  <td width="120">&nbsp;</td>
+					  <td><a href="javascript:"  class="button dosave">保存规则</a>&nbsp;<a href="javascript:history.back();"  class="button button_grey">返回列表</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div> 
+	&nbsp;
+ </form>
+ </div> 
+<div class="runtime"></div>
+<script type="text/javascript">
+$("fieldset legend").click(function(){
+	$(this).parent().find("table:first").toggle();
+	$(this).toggleClass("c9");
+});
+$(".dosave").click(function(){
+	showDialog();
+	$.ajax({
+		type:"post",
+		url:"?admin-collect-update",
+		data:$("form").serialize(),
+		dataType:'json',
+		timeout:28000,
+		global:false,
+		success:function(data){
+			if(data.status==1){
+				showAlert('success','恭喜你，修改成功',"?admin-collect-index");
+			}else{
+				showAlert('error',data.info);
+			}
+		}
+	});
+ return false;
+});
+</script>
+
+</body>
+</html>

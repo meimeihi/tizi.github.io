@@ -1,0 +1,81 @@
+{include file="header.html"}
+<body class="body-main">
+
+<ul id="admin_sub_title">
+	<li class="sub"><a>在线升级</a></li>
+</ul>
+<style type="text/css">
+.update_box{ font-family: Microsoft Yahei;margin:50px auto;text-align: center;width: 500px;height: 300px;display: table;border:2px solid #eee;background:#f8f8f8}
+.update_box .inbox{ display: table-cell;vertical-align: middle;}
+.inbox button{ padding:20px 30px;height:80px;font-size:25px; }
+.inbox button i { font-size:35px; }
+.inbox {line-height:25px;}
+#loadajax,.msgbox{ display:none}
+.msgtext{ border-bottom: 1px solid #eee;border-top: 1px solid #eee;text-align: left;padding:10px;margin-bottom:10px;font-size:13px;height:180px;overflow:auto;background:#fff;line-height:22px;}
+</style>
+<div id="admin_right_b">
+<div class="update_box">
+	<div class="msgbox">
+		<h2>检测到新版本</h2>
+		<div class="msgtext"></div>
+		<div class="msgfoot"><button type="button" id="update" class="button button_success" >点击升级</button></div>
+	</div>
+	<div class="inbox" id="inbox">
+		<div id="loadajax"><p><img src="./static/images/ajax_loader.gif" /></p><p>正在检测...</p></div>
+		<button type="button" id="check1" class="button button_success" ><i class="typcn typcn-weather-cloudy"></i> 无需升级</button>
+	</div>
+</div>
+<script type='text/javascript'>
+$(function() {
+	$("#update").click(function(){
+		$('.msgtext').html('<div style="text-align: center;margin-top:50px;"><p><img src="./static/images/ajax_loader.gif" /></p><p>正在下载升级...</p></div>');
+		$.ajax({
+			url:"{url('admin/update/update')}",
+			dataType:'json',
+			timeout:2800000,
+			global:false,
+			success:function(data){
+				if(data.status==1){
+					$('.msgtext').html('<p style="text-align: center;"><font color="green" style="font-size:20px;">'+data.info+'</font></p>');
+					$(".msgfoot").hide();
+				}else{
+					$('.msgtext').html('<p style="text-align: center;"><font color="red" style="font-size:20px;">'+data.info+'</font></p>');
+				}
+				if(data.url){
+					top.art.dialog.open(data.url,{ lock:true,opacity:0.3,title:'在线升级',id:'updateifrm',width:'650px',height:'400px'});
+				}
+			}
+		});
+	 return false;
+	});
+	$("#check").click(function(){
+		$('#loadajax').show();
+		$("#check").hide();
+		$.ajax({
+			url:"{url('admin/update/check')}",
+			dataType:'json',
+			timeout:28000,
+			global:false,
+			success:function(data){
+				$('#loadajax').hide();
+				if(data.status==1){
+					$('.msgbox').show();
+					$('.msgtext').html(data.info);
+					if(data.hasfile==0){
+						$("#update").attr('disabled','disabled').text('无法在线升级，请到官网下载！');
+					}
+				}else{
+					$("#check").show();
+					showAlert('error',data.info);
+				}
+			}
+		});
+	 return false;
+	});
+});
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

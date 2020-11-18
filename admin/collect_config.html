@@ -1,0 +1,84 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">自动采集设置</a></li>
+</ul>
+<div id="admin_right_b">
+<style type="text/css">
+.hourtime{ line-height:30px; }
+.hourtime label{ margin: 0 10px; }
+</style>
+<form action="?admin-collect-confupdate" method="post">
+<table border="0" cellpadding="8" cellspacing="0" class="tableConfig">
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 采集发布策略</td>
+	<td>（建议开启，目前仅用于标题库）</td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">启动发布策略：</td>
+  <td><label><input type="radio" name="con[collect_send_type]" value="1" {if $collect_send_type} checked{/if}>开启</label>
+		<label><input type="radio" name="con[collect_send_type]" value="0" {if !$collect_send_type} checked{/if}>关闭</label>
+	</td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">每次发布条数：</td>
+  <td><input name="con[collect_send_num]" type="text" class="input" value="{$collect_send_num|default:300}" size="5"> <span class="red">条，当采集到此数量时才发布，建议100-300</span>
+  </td>
+</tr>
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 自动采集选项</td>
+	<td></td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">自动采集总开关：</td>
+  <td><label><input type="radio" name="con[collect_open]" value="1" {if $collect_open} checked{/if}>开启</label>
+		<label><input type="radio" name="con[collect_open]" value="0" {if !$collect_open} checked{/if}>关闭</label></td>
+</tr>
+<tr>
+	<td width="120" align="right" class="config_td_first">自动采集时段：</td>
+	<td>
+		<div class="hourtime">
+		<?php for($i=0;$i<24;$i++){?>
+		<?php if($i && $i%5==0){ echo '<br>'; }?>
+		<?php $si=$i; if($i<10){ $si='0'.$i; }?>
+		<label><input type="checkbox" name="collect_hour[]" value="<?php echo $i;?>" <?php if(in_array($i,$this->_var['collect_hour'])){ echo ' checked'; }?>><?php echo $si;?>时</label>
+		<?php }?>
+		</div>
+		<br>
+		<label><input type="checkbox" id='checkall_time'>全选</label>
+	</td>
+</tr>
+<tr>
+  <td align="right" class="config_td_first">采集间隔时间：</td>
+  <td><input name="con[collect_interval]" type="text" class="input" value="{$collect_interval|default:20}" size="5"> <span class="red">秒，全天采集时建议至少20起步</span>
+  </td>
+</tr>
+<tr class="tdbg item_title">
+	<td align="right"><i class="typcn typcn-cog"></i> 其他选项</td>
+	<td></td>
+</tr>
+<tr class="tdbg">
+  <td align="right" class="config_td_first">保存图片地址：</td>
+  <td><label><input type="radio" name="con[collect_getpic]" value="1" {if $collect_getpic} checked{/if}>开启</label>
+		<label><input type="radio" name="con[collect_getpic]" value="0" {if !$collect_getpic} checked{/if}>关闭</label>　<span>保存内容中的图片地址到图片库</span></td>
+</tr>
+<tr>
+	  <td>&nbsp;</td>
+      <td><button type="submit" class="button">保存设置</button></td>
+    </tr>
+	</table>
+</form>
+<div class="runtime"></div>  
+</div>
+<script type="text/javascript">
+$("#checkall_time").click(function(){   
+	if(this.checked){   
+		$(".hourtime :checkbox").prop("checked", true);  
+	}else{   
+		$(".hourtime :checkbox").prop("checked", false);
+	}   
+});
+</script>
+{include file="footer.html"}
+</body>
+</html>

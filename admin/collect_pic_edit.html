@@ -1,0 +1,93 @@
+{include file="header.html"}
+<body class="body-main">
+<link href="static/css/collect.css" rel="stylesheet" type="text/css" />
+{include file="collect_head.html"}
+<style type="text/css">
+
+</style>
+<div id="admin_right_b">
+
+<form action="{'admin/collect/Update'|url}" method="post" autocomplete="off">
+	<input type="hidden" name="r[id]" value="{$id|default:0}">
+	<input type="hidden" name="r[model]" value="pic">
+	<div id="col-content">
+		<div class="col-content" id="tab0" style="height:auto; display:block;" >
+			<div class="common-form">
+				<fieldset>
+					<legend>规则基本信息</legend>
+					<table width="98%" border="0" cellpadding="5" cellspacing="0">
+					<tbody class="co_item">
+						{include file="collect_basic.html"}
+						<tr>
+							<td align="right">类型：</td> 
+							<td>图片</td>
+						</tr>
+					</tbody>
+					</table>
+				</fieldset>
+				
+				<fieldset>
+					<legend>网址配置</legend>
+					<table width="98%" border="0" cellpadding="5" cellspacing="0">
+						<tbody class="co_item">
+						<tr>
+								<td align="right" class="w100">匹配网址：<br>(一行填写一条)</td>
+								<td colspan='3'><textarea name="rules[regxurl_list]" class="textarea" style="width:800px;height:200px;">{$rules.regxurl_list|htmlspecialchars}</textarea></td>
+						</tr>
+						<tr>
+							<td align="right">&nbsp;</td>
+							<td colspan="3">
+							<font color="blue">
+								http://xbwseo.com/<br>
+								http://xbwseo.com/a/list_<font color="red">{<l>p,1,5,1}</font>.html<br>
+								http://xbwseo.com/a/list_<font color="red">{<l>p,1,5,1}</font>.html->http://xbwseo.com/uploads/images/<font color="red">(*)</font>.jpg<br>
+								</font> 
+								<br><br><font color="red">{<l>p,1,5,1}</font> 表示分页，参数：p后面的数字分别代表开始、结束、递增/减值，即 <font color="red">{p,开始,结束,递增/减值}</font>
+								<br><br>匹配指定url的图片，则后面加<font color="red">->url规则</font>，通配符号：<font color="red">(*)</font>（任意字符）、<font color="red">(w)</font>（数字字母下划线）、<font color="red">(d)</font>（数字）</span>
+
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</fieldset>
+				<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" style="margin-top:20px;">
+					<tr class="tdbg">
+					  <td width="120">&nbsp;</td>
+					  <td><a href="javascript:"  class="button dosave">保存规则</a>&nbsp;<a href="javascript:history.back();"  class="button button_grey">返回列表</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div> 
+	&nbsp;
+ </form>
+ </div> 
+<div class="runtime"></div>
+<script type="text/javascript">
+$("fieldset legend").click(function(){
+	$(this).parent().find("table:first").toggle();
+	$(this).toggleClass("c9");
+});
+$(".dosave").click(function(){
+	showDialog();
+	$.ajax({
+		type:"post",
+		url:"?admin-collect-update",
+		data:$("form").serialize(),
+		dataType:'json',
+		timeout:28000,
+		global:false,
+		success:function(data){
+			if(data.status==1){
+				showAlert('success','恭喜你，修改成功',"?admin-collect-index");
+			}else{
+				showAlert('error',data.info);
+			}
+		}
+	});
+ return false;
+});
+</script>
+
+</body>
+</html>

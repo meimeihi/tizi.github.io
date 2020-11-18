@@ -1,0 +1,39 @@
+<div id="chart_line_day" style="width:69%;height: 300px;margin: 10px 0;float:right;position: relative;"></div>
+<script type="text/javascript">
+$('#chart_line_day').highcharts({
+	chart: {
+		type: 'line'
+	},
+	credits:{
+		enabled:false
+	},
+	title: {
+		text: '{$title|default:"今日蜘蛛时段走势图"}'
+	},
+	subtitle: {
+		text: '{$subtitle|default:"今日访问数量：$todayCount"}'
+	},
+	xAxis: {
+		categories: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
+	},
+	yAxis: {
+		title: {
+			text: ''
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [
+		{
+			name: '蜘蛛访问次数（次/小时） 访问量大的时候，小时数会统计不全',
+			data: [{$hour}]
+		}
+	]
+});
+</script>

@@ -1,0 +1,81 @@
+{include file="header.html"}
+<body class="body-main">
+<ul id="admin_sub_title">
+	<li class="sub"><a href="javascript:void(0)">模板规则设置</a></li>
+</ul>
+<div id="admin_right_b">
+<form action="?admin-theme-update_rules" method="post" name="form" id="form">
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td colspan="5"><i class="typcn typcn-cog"></i> 模板规则列表</td>
+</tr>
+<tr class="headtr" align="center">
+  <td width="50">ID</td>
+  <td width="100">模板文件</td>
+  <td width="300">url规则</td>
+  <td width="60">操作</td>
+  <td>&nbsp;</td>
+</tr>
+<tr align="center">
+	<td align="center">1</td>
+	<td><input type="text" value="index" class="input" style="width:100px;" disabled></td>
+	<td><input type="text" value="/" class="input" style="width:600px;font-size:13px;" disabled></td>
+	<td  align="center"><font color="red">系统</font></td>
+	<td align="center">&nbsp;</td>
+</tr>
+{php}$i=2;{/php}
+{foreach $list as $k=>$vo}
+<tr align="center">
+	<td align="center">{php}echo $i;{/php}<input type="hidden" name="system[]" value="{$vo.system}" /></td>
+	<td><input name="tplfile[]" type="text" value="{$vo.tplfile}" class="input" style="width:100px;{if $vo.system}background:#eee;{/if}" {if $vo.system}readonly{/if}></td>
+	<td><input name="rules[]" type="text" value="{$vo.rules}" class="input" style="width:600px;font-size:13px;"></td>
+	<td  align="center">{if $vo.system}<font color="red">系统</font>{else}<a href="?g=admin&m=theme&a=del_rules&id={$vo.tplfile}" onClick="return confirm('确定删除吗?')">删除</a>{/if}</td>
+	<td align="center">&nbsp;</td>
+</tr>
+{php}$i++;{/php}
+{/foreach}
+<tr>
+  <td colspan="5" height='30'>
+	<button type="submit" class="button" onClick="form.action='?admin-theme-update_rules';"><i class="typcn typcn-edit"></i>批量修改</button>
+	</td>
+</tr>
+</table>
+</form>
+<br>
+<form action="?admin-theme-insert_rules" method="post">
+<table border="0" align="center" cellpadding="8" cellspacing="1" class="tableConfig">
+<tr class="item_title">
+	<td colspan="6"><i class="typcn typcn-cog"></i> 添加新模板规则</td>
+</tr>
+<tr class="headtr" align="center">
+  <td width="50">ID</td>
+  <td width="100">模板文件</td>
+  <td width="300">url规则</td>
+  <td width="60">操作</td>
+  <td>&nbsp;</td>
+</tr>
+
+<tr align="center">
+<td>0</td>
+<td><input name="tplfile" type="text" value="" class="input" style="width:100px"></td>
+<td><input name="rules" type="text" value="" class="input" style="width:600px"></td>
+<td align="center"><button type="submit" class="button">添加</button></td>
+<td align="center">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="5" style="background:#eee;"><div style="color:#cc0000;padding:10px;font-size:14px;line-height:25px">
+		<p>设置说明：</p>
+		<p>1. 模板文件不用加.html</p>
+		<p>2. url规则标签： {数字}、{字母}、{数字字母}，多条url规则用逗号 , 隔开</p>
+		<p>3. 标签后面加数字是位数，如： {数字8}表示8个数字</p>
+		<p>4. 前台的模板标签调用中指定模板文件，即可获取该模板url，具体查看《小霸王蜘蛛池模板标签编写指南》</p>
+		</div></td>
+</tr>
+</table>
+</form>
+
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

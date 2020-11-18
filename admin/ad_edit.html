@@ -1,0 +1,62 @@
+{include file="header.html"}
+<body class="body-main">
+<div class="admin_notice"><font color="#990000">{literal}此广告调用标签：{$myad{/literal}.{$mark|default:'标识'}} </font></div>
+<br>
+<ul id="admin_sub_title">
+	<li class="unsub"><a href="{url('admin/ad/index')}">广告管理</a></li>
+	<li class="sub">{if $id==0}添加{else}编辑{/if}广告</li>
+</ul>
+
+<div id="admin_right_b">
+  <form method="post">
+    <table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" id="tagContent0">
+	<tr>
+      <td width="120" align="right" class="tdbg">广告标识(唯一)：</td>
+      <td class="tdbg"><input name="con[mark]" type="text" value="{$mark}" class="input" size="30"></td>
+    </tr>
+
+	<tr>
+      <td align="right" class="tdbg">广告说明：</td>
+      <td class="tdbg"><input name="con[name]" type="text" value="{$name}" class="input" size="30"></td>
+    </tr>
+
+    <tr class="tdbg">
+      <td align="right" class="tdbg">广告代码：</td>
+      <td valign="top"><textarea id="body" name="con[code]" style="width:630px;height:320px;" >{$code|htmlspecialchars}</textarea>
+	  </td>
+    </tr>
+	<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" >
+		<tr class="tdbg">
+		  <td width="120">&nbsp;</td>
+		  <td><button type="submit" id="dosave" class="button">保存</button> <button type="button" onClick="history.go(-1)" class="button">返回</button></td>
+		</tr>
+	</table>
+ </form>
+<script type="text/javascript">
+editor=KindEditor.create('#body',editoption);
+$("#dosave").click(function(){
+	editor.sync('#body');
+	showDialog();
+	$.ajax({
+		type:"post",
+		url:"?admin-ad-update-id-{$id|default:0}",
+		data:$("form").serialize(),
+		dataType:'json',
+		timeout:28000,
+		global:false,
+		success:function(data){
+			if(data.status==1){
+				showAlert('success','恭喜你，{if $id==0}添加{else}编辑{/if}成功',"{url('admin/Ad/index')}");
+			}else{
+				showAlert('error',data.info);
+			}
+		}
+	});
+ return false;
+});
+</script>
+<div class="runtime"></div>  
+</div>
+{include file="footer.html"}
+</body>
+</html>

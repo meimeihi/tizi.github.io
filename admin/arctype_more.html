@@ -1,0 +1,103 @@
+{include file="header.html"}
+<body>
+<form method="post">
+<table border="0" align="center" cellpadding="3" cellspacing="1" class="table_b" id="quick">
+	<tr>
+	  <td width="100" class="title_bg">分类名称</td>
+	  <td width="100" align='center' class="title_bg">标识符</td>
+	  <td width="70" align='center' class="title_bg">采集列表id</td>
+	  <td width="30" align='center' class="title_bg">采集页数</td>
+	  <td width="100" align='center' class="title_bg">采集规则</td>
+	  <td width="100" align='center' class="title_bg">列表模板</td>
+	  <td width="100" align='center' class="title_bg">内容模板</td>
+	  <td width="100" align='center' class="title_bg">上级分类</td>
+	  <td width="50" align='center' class="title_bg">排序</td>
+	  <td width="50" align="center" class="title_bg"><button type="button" class="add">增加</button></td>
+	  <td align='center' class="title_bg">&nbsp;</td>
+	</tr>
+	<?php for($i=0;$i<10;$i++){ ?>
+	<tr class="mtr" align="center" bgcolor='#ffffff'>
+		<td><input type="text" name="m[<?php echo $i;?>][cname]" style="width:100px" class="input"></td>
+		<td><input type="text" name="m[<?php echo $i;?>][ename]" style="width:60px" class="input"></td>
+		<td><input type="text" name="m[<?php echo $i;?>][sid]" style="width:50px" value="" class="input"></td>
+		<td><input type="text" name="m[<?php echo $i;?>][pagetotal]" style="width:30px" value="10" class="input"></td>
+		<td><select name="m[<?php echo $i;?>][nid]">
+		<option value="">不绑定</option>
+					{if !$collect_list}
+						<option value="">没有可绑定的规则</option>
+					{else}
+						{foreach $collect_list as $k=>$vo}
+							<option value="{$vo.id}"{if $vo['id']==$nid} selected{/if}>{$vo.name}</option>
+						{/foreach}
+					{/if}
+		</select></td>
+		<td><input type="text" name="m[<?php echo $i;?>][tpl_list]" style="width:70px" value="{$tpl_list|default:$tpl_list_default}" class="input"></td>
+		<td><input type="text" name="m[<?php echo $i;?>][tpl_show]" style="width:70px" value="{$tpl_show|default:$tpl_show_default}" class="input"></td>
+		<td><select name="m[<?php echo $i;?>][pid]">
+	<option value="0">顶级分类</option>
+	{$class_option}
+	</select></td>
+		<td><input type="text" name="m[<?php echo $i;?>][order]" size="5" value="{abs($i-99)}" class="input"></td>
+		<td><a href="javascript:" onclick="deltr(this);">删除</a></td>
+		<td>&nbsp;</td>
+	</tr>
+	<?php } ?>
+	<script type="text/javascript">
+	function deltr(elem){
+		$(elem).parents(".mtr").remove();
+	}
+	$(document).ready(function(){
+		$("#quick .add").click(function(){
+			var id = $("#quick tr").prevAll("tr").length+1;
+			var order=98-$("#quick tr").prevAll("tr").length;
+			var input='<tr class="mtr" align="center" bgcolor="#ffffff">';
+			input+='<td><input type="text" name="m['+id+'][cname]" style="width:100px" class="input"></td>';
+			input+='<td><input type="text" name="m['+id+'][ename]" style="width:70px" class="input"></td>';
+			input+='<td><input type="text" name="m['+id+'][sid]" style="width:70px" value="" class="input"></td>';
+			input+='<td><input type="text" name="m['+id+'][pagetotal]" style="width:60px" value="" class="input"></td>';
+			input+='<td><select name="m['+id+'][nid]"><option value="">不绑定</option>{if !$collect_list}<option value="">没有可绑定的规则</option>{else}{foreach $collect_list as $k=>$vo}<option value="{$vo.id}"{if $vo['id']==$nid} selected{/if}>{$vo.name}</option>{/foreach}{/if}</select></td>';
+			input+='<td><input type="text" name="m['+id+'][tpl_list]" style="width:70px" value="" class="input"></td>';
+			input+='<td><input type="text" name="m['+id+'][tpl_show]" style="width:70px" value="" class="input"></td>';
+			input+='<td><select name="m['+id+'][pid]"><option value="0">顶级分类</option>{$class_option}</select></td>';
+			input+='<td><input type="text" name="m['+id+'][order]" size="5" class="input" value="'+order+'"></td>';
+			input+='<td><a href="javascript:" onclick="deltr(this);">删除</a></td>';
+			input+='<td>&nbsp;</td></tr>';
+			$("#quick").append(input);
+		});
+	});
+	</script>
+</table>
+ </form>
+
+<table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" style="margin-top:10px;">
+	<tr class="tdbg">
+	  <td align="center">
+		<button type="submit" id="dosave" class="button">保存</button>
+			&nbsp;&nbsp;注：排序越大越靠前
+	  </td>
+	</tr>
+</table>
+ <script type="text/javascript">
+$("#dosave").click(function(){
+		showDialog();
+		$.ajax({
+			type:"post",
+			url:"{url('admin/arctype/update?more=1')}",
+			data:$("form").serialize(),
+			dataType:'json',
+			timeout:28000,
+			global:false,
+			success:function(data){
+				if(data.status==1){
+					parent.location.reload();
+					parent.art.dialog.list['openClassifrm'].close();
+				}else{
+					showAlert('error',data.info);
+				}
+			}
+		});
+	 return false;
+	});
+</script>
+</body>
+</html>

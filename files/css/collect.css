@@ -1,0 +1,15 @@
+img{max-width:500px;}
+fieldset tr{height:28px;}
+fieldset td{padding:3px 5px 3px 10px;}
+.co_item_hover tr{background:#f8f8f8;}
+td.co_item_td_first{border-left:2px solid transparent;}
+.co_item_hover td.co_item_td_first{border-left:2px solid #ffcc00;}
+td.co_item_td_last{border-right:2px solid transparent;}
+.co_item_hover td.co_item_td_last{border-right:2px solid #ffcc00;}
+#class_area{width:700px;}
+#class_tips{display:none;position:absolute;width:700px;height:100%;top:0;opacity:0.8;background:#000;}
+#class_tips a{font-size:18px;color:#fff;position:absolute;left:50%;top:50%;margin:-10px 0 0 -80px;}
+.sm-box{background:#FEFCF1;border-top:1px solid #fdeedb;border-bottom:1px solid #fdeedb;color:#ff9900;padding:8px 0;font-family:Microsoft Yahei;position:relative;overflow:hidden;height:10px;}
+.sm-box .title{color:#fe8601;font-size:13px;padding-bottom:5px;padding-left:10px;}
+.sm-box .content{color:#888;padding-left:10px;}
+.sm-box .content p{line-height:25px;}

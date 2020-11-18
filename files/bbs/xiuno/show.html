@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{$toptitle}</title>
+	<meta name="description" content="{$description}" />
+	<meta name="keywords" content="{$keywords}" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<link rel="stylesheet" href="{$theme_path}/view/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<style type="text/css">
+img{  max-width:700px;}
+</style>
+
+<div id="wrapper">
+	{include file="head.html"}
+	<div id="body" class="container">
+	
+		
+
+
+<!-- only for screenreader  -->
+<a role="button" class="sr-only sr-focusable" href="{随机内容URL}">发新帖</a>
+
+<div class="row">
+	<div class="col-lg-9">
+		
+		<ol class="breadcrumb m-b-sm hidden-lg-down">
+			<li class="breadcrumb-item"><a href="{网站名称}"><i class="icon-home" aria-hidden="true"></i></a></li>
+			<li class="breadcrumb-item active"><a href="{$typeurl}">{$typename}</a></li>
+			<li class="breadcrumb-item active"><a href="{$thisurl}">{$title}</a></li>
+			
+		</ol>
+		
+		<div class="card card-block">
+			<dl class="row">
+				<dt class="vtop p-r-1 td-avatar">
+					<a href="{$thisurl}" tabindex="-1">
+						<img class="avatar" src="{$pic}">
+					</a>
+				</dt>
+				<dd>
+					
+					<h3 class="break-all">{主标题}</h3>
+					
+					<dl class="row small">
+						<dt>
+							
+							<span class="username text-muted"></span>
+							<span class="date text-grey m-l-1">{$postdate}</span>
+							<span class="text-grey m-l-1 hidden-md-down"><i class="icon-eye"></i> {固定数字3}</span>
+							
+						</dt>
+						<dd class="text-right">
+							
+														
+														
+						</dd>
+					</dl>
+				</dd>
+			</dl>
+			<hr />
+			<div class="message break-all" isfirst="1">{$body}</div>
+		</div>
+		
+		
+		<div class="card post p-a-sm">
+			<table class="table postlist m-b-0">
+				<thead>
+					<tr>
+						<th colspan="2" class="p-a-0  p-b-sm">
+							<dl class="row">
+								<dt>
+									<b>最新回复</b> (<span class="posts">2</span>)
+								</dt>
+								<dd>
+									
+								</dd>
+							</dl>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+													
+					{loop type='arclist' row="3"}
+									<tr class="post" pid="89347">
+						<td class="vtop td-avatar">
+							<a>
+								<img class="avatar" src="{getone name='pic'/}">
+							</a>
+							
+						</td>
+						<td class="p-x-0">
+							<dl class="row small text-muted">
+								<dt>
+									
+									<span class="username text-muted"></span>
+									<span class="date text-grey m-l-1">{$vo.postdate}</span>
+									
+								</dt>
+								<dd class="text-right text-grey ">
+									
+									
+																		<a href="javascript:void(0)" tid="{$vo.i}" pid="{$vo.i}" class="text-grey post_reply m-r-1"><i class="icon-reply"></i> 引用</a>
+																		
+									
+
+																	
+									
+
+																		
+									
+
+																		<span class="floor">{$vo.i}</span> 楼																		
+								</dd>
+							</dl>
+							<div class="message m-t-xs break-all">{getone name='content'/}</div>
+						</td>
+					</tr>
+					 {/loop}	
+					
+									</tbody>
+			</table>
+		</div>
+		
+		
+				
+		
+		
+		<a role="button" class="btn btn-secondary btn-block xn-back m-y-1 m-x-auto" style="max-width: 50%;" href="javascript:history.back();">返回</a>
+		
+	</div>
+	<div class="col-lg-3 hidden-md-down">
+		<a role="button" class="btn btn-primary btn-block btn-sm m-b-sm hidden-md-down" href="./thread-create-3_.htm">发新帖</a>
+		<div class="card hidden-md-down">
+			
+			<a href="#">
+				<img class="avatar-lg center-block m-t-1" src="{$pic}">
+			</a>
+			<h5 class="text-xs-center">{固定数字6}</h5>
+			<div class="card-group card-group-nest">
+				
+				<div class="card">
+					<div class="card-block">
+						<div class="text-center text-muted text-nowrap small">主题数</div>
+						<div class="text-center text-middle text-bold">{固定数字4}</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-block">
+						<div class="text-center text-muted text-nowrap small">帖子数</div>
+						<div class="text-center text-middle text-bold">{固定数字5}</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-block  center-block">
+						<div class="text-center text-muted text-nowrap small">用户数</div>
+						<div class="text-center text-middle text-bold">{固定数字6}</div>
+					</div>
+				</div>
+								<div class="card">
+					<div class="card-block center-block">
+						<div class="text-center text-muted text-nowrap small ">在线</div>
+						<div class="text-center text-middle text-bold">{固定数字2}</div>
+					</div>
+				</div>
+							</div>
+			
+		</div>
+		<div class="card">
+	<form action="{随机内容URL}" id="search_form">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="关键词" name="keyword">
+			<span class="input-group-btn">
+				<button class="btn btn-secondary" type="submit">搜索</button>
+			</span>
+		</div>
+	</form>
+	</div>
+		{include file="footer.html" }
+</body>
+</html>

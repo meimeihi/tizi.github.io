@@ -1,0 +1,53 @@
+<div class="card"></div>
+
+				<div class="card card-block">
+			<h6 class="card-title">友情链接：</h6>
+			<ul>
+				{loop type="domain" row=5}<li class="m-b-xs text-small"><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>{/loop}
+	{if $links_open}
+   {loop type="link" row=5}
+   <li class="m-b-xs text-small"><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+   {/loop}
+   {/if}
+							</ul>
+		</div>
+		
+	</div>
+</div>
+
+<div class="row"></div>
+
+
+
+
+
+</div>
+
+
+
+
+<div class="text-muted" id="footer">
+	<div class="container" style="overflow: hidden;">
+		<dl class="row">
+			<dt>
+	<p >Copyright &copy; 2017 Powered by <a href="{$thisurl}">{$title}</a>,<a href="{$web_url}">{$web_name}</a>&nbsp;&nbsp;{$web_tongji} <a href="http://{$host}/sitemap.xml">sitemap</a>&nbsp;&nbsp;{nocache}{_runtime('loadTime','end')}s , {$usememory} kb{/nocache}</p>
+
+			</dt>
+		</dl>
+	</div>
+</div>
+
+
+
+<script src="{$theme_path}/lang/zh-cn/bbs.js"></script>
+<script src="{$theme_path}/view/js/jquery-3.1.0.js"></script>
+<script src="{$theme_path}/view/js/tether.js"></script>
+<script src="{$theme_path}/view/js/bootstrap.js"></script>
+<script src="{$theme_path}/view/js/bootstrap-plugin.js"></script>
+<script src="{$theme_path}/view/js/async.js"></script>
+<script src="{$theme_path}/view/js/xiuno.js"></script>
+<script src="{$theme_path}/view/js/form.js"></script>
+
+<script src="{$theme_path}/view/js/bbs.js"></script>
+{$web_share}
+{$web_bdpush}

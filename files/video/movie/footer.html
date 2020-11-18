@@ -1,0 +1,21 @@
+
+<footer class="footer">
+    <div class="container">
+    <div class="row" style="text-align:center">
+    <p>免责声明：本网站所有内容都是靠程序在互联网上自动搜集而来，仅供测试和学习交流。若侵犯了您的权益，请发邮件通知站长。</p>
+	<p >{_runtime('loadTime','end')}s , {$usememory} kb</p>
+	<p >Copyright &copy; 2016 Powered by <a href="{$thisurl}">{$title}</a>,<a href="{$web_url}">{$web_name}</a>&nbsp;&nbsp;{$web_tongji} <a href="http://{$host}/sitemap.xml">sitemap</a></p>
+    </div>
+
+<p class="friend-link">友情链接：
+{loop type="domain"}<a href="{$vo.url}" target="_blank">{$vo.title}</a>{/loop}
+	{if $links_open}
+   {loop type="link"}
+   <a href="{$vo.url}" target="_blank">{$vo.title}</a>
+   {/loop}
+   {/if}
+</p>
+    </div>
+</footer>
+{$web_share}
+{$web_bdpush}

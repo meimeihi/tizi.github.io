@@ -1,0 +1,99 @@
+<nav class="navbar navbar-dark bg-inverse navbar-full navbar-fixed-top" id="header">
+	
+		<!-- PC 导航 -->
+		<div class="container collapse navbar-toggleable-md">
+			<div class="row">
+				<!-- 左侧：版块区域 -->
+				<div class="col-md-8">
+					<ul class="nav navbar-nav" id="nav_pc">
+					
+						
+						
+						<!-- LOGO -->
+						<li class="nav-item"><img src="{$theme_path}/view/img/logo.png" class="logo-sm"></li>
+
+						<!-- 前台首页 -->
+						<li class="nav-item home" fid="0"><a class="nav-link" href="{网站地址}">首页</a></li>
+
+						<!-- 版块 -->
+						{loop type="typename" row="6"}
+					<li class="nav-item" fid="{$vo.i}"><a class="nav-link" href='{$vo.typeurl}'>{$vo.typename}</a></li>
+					{/loop}
+					</ul>
+				</div>
+				<!-- 右侧：用户区域-->
+				<div class="col-md-4">
+					<ul class="nav navbar-nav pull-right">
+					
+						
+						
+						<!-- 游客 -->
+												
+						<li class="nav-item"><a class="nav-link" href="#">登录</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">注册</a></li>
+						
+						<!-- 登陆用户 -->
+												
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- 手机导航 -->
+
+		<table width="100%" class="hidden-lg-up navbar-nav">
+			<tr>
+				<td width="100">
+										<a class="icon-navicon navbar-toggler" role="button" data-toggle="collapse" data-target="#mobile_collapsing_bavbar"></a>
+					 			
+				</td>
+				<td>
+					<a class="nav-link text-center" href="{$theme_path}/_index_.htm">
+											<img src="{$theme_path}/view/img/logo.png" class="logo-sm center-block">
+										</a>
+
+				</td>
+				<td width="100" align="right">
+											<a class="nav-link m-r-xs" href="{$theme_path}/user-login.htm" aria-label="登录"> <i class="icon-user  icon-2x"></i></a>
+					
+				</td>
+			</tr>
+		</table>
+	
+		
+		<!-- 手机导航：下拉菜单 mobile navigation drop menu -->
+		<div class="collapse" id="mobile_collapsing_bavbar" style="overflow-y: auto;">
+			<div class="p-a-1">
+				<ul class="nav navbar-nav" id="nav_mobile">
+					<li class="nav-item">
+						<a class="nav-link" href="{网站地址}"><i class="icon-home"></i> 首页</a>
+					</li>
+					{loop type="typename" row="8"}
+					<li class="nav-item" fid="{$vo.i}"><a class="nav-link m-l-2" href='{$vo.typeurl}'><i class="icon-circle-blank"></i> {$vo.typename}</a></li>
+					{/loop}
+					
+					
+					<!-- 个人资料 / profile -->
+										
+					<!-- 后台 / background -->
+										
+					<li class="nav-item">
+	<a class="nav-link" href="{$theme_path}/search.html"><i class="icon-search"></i> 搜索</a>
+</li>
+					
+					<!-- 退出 / logout-->
+										
+					
+				</ul>
+			</div>
+		</div>
+		
+	</nav>

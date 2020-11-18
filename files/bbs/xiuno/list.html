@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{$toptitle}</title>
+	<meta name="description" content="{$description}" />
+	<meta name="keywords" content="{$keywords}" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<link rel="stylesheet" href="{$theme_path}/view/css/bootstrap.min.css">
+</head>
+
+<body>
+
+
+
+<div id="wrapper">
+	{include file="head.html"}
+	<div id="body" class="container">
+	
+		
+
+
+<!-- only for screenreader  -->
+<a role="button" class="sr-only sr-focusable" href="{随机内容URL}">发新帖</a>
+
+<div class="row">
+	<div class="col-lg-9">
+		
+		<ol class="breadcrumb m-b-sm hidden-md-down">
+			<li class="breadcrumb-item"><a href="{网站名称}"><i class="icon-home" aria-hidden="true"></i></a></li>
+			<li class="breadcrumb-item active"><a href="{$thisurl}">{$typename}</a></li>
+			
+		</ol>
+		
+		
+<style>
+table.nav_tag_list {margin-bottom: 0.2rem;}
+table.nav_tag_list td {padding: 0.3rem;}
+table.nav_tag_list td a{margin-right: 0.5rem;}
+.nav_tag_list .active {font-weight: 800;}
+</style>
+
+		<div class="card">
+			<div class="card-header">
+				<ul class="nav nav-tabs card-header-tabs pull-xs-left">
+					<li class="nav-item">
+						<a class="nav-link active" href="{随机内容URL}">最新主题</a>
+					</li>
+										<li class="nav-item">
+						<a class="nav-link  " href="{随机内容URL}">精华主题</a>
+					</li>
+				</ul>
+			</div>
+			<div class="card-block">
+				<table class="table table-hover threadlist">
+					<tbody>
+						
+											
+{loop type="arclist" row="15" image=1}
+					<tr class="thread tap top_3" href="{$vo.url}" tid="{随机数字3}">
+
+						<td class="td-avatar">
+							<a href="{$vo.url}" tabindex="-1">
+								<img class="avatar" src="{$vo.pic}">
+							</a>
+							
+						</td>
+						<td class="td-subject p-l-0">
+							<div class="subject">
+								<a href="{随机栏目URL}" class="text-grey small hidden-md-down">[{随机栏目}]</a>
+								<a href="{$vo.url}">{$vo.title}</a>
+							</div>
+							<dl class="row small">
+								<dt>
+									<a href="{$vo.url}" class="username text-grey m-r-xs hidden-md-down">{随机字母}</a>
+									<span class="date text-grey hidden-md-down">-</span>
+									<span>
+										<span class="text-grey m-x-sm">←</span>
+										<a href="{$vo.url}" class="username text-grey m-r-xs">{随机字母}</a>
+										<span class="text-grey">{$vo.postdate}</span>
+									</span>
+								</dt>
+								<dd class="text-right text-grey">
+									<span class="m-r-1"><i class="icon-eye"></i> {随机数字}</span>
+									<span class="hidden-xs-down m-r-1"><i class="icon-comment"></i> {随机数字}</span>
+								</dd>
+							</dl>
+						</td>
+					</tr>
+					 {/loop}				
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+				
+		<nav class="text-center"><ul class="pagination"><li class="page-item active"> {loop type="typename" row=5}<li class="page-item"><a href="{$vo.typeurl}" class="page-link">{$k+1}</a></li>{/loop}<li class="page-item"><a href="{随机栏目URL}" class="page-link">▶</a></li></ul></nav>
+		
+	</div>
+	<div class="col-lg-3 hidden-md-down">
+		<a role="button" class="btn btn-primary btn-block btn-sm m-b-sm hidden-md-down" href="{随机栏目URL}">发新帖</a>
+		<div class="card">
+			<h4 class="text-center">{$typename}</h4>
+			
+			<p class="m-x-1 text-middle">{固定句子1}</p>
+			
+			<div class="card-group card-group-nest">
+				
+				<div class="card">
+					<div class="card-block">
+						<div class="text-center text-muted text-nowrap small">主题数</div>
+						<div class="text-center text-middle text-bold">{固定数字4}</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-block">
+						<div class="text-center text-muted text-nowrap small">帖子数</div>
+						<div class="text-center text-middle text-bold">{固定数字5}</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-block  center-block">
+						<div class="text-center text-muted text-nowrap small">用户数</div>
+						<div class="text-center text-middle text-bold">{固定数字6}</div>
+					</div>
+				</div>
+								<div class="card">
+					<div class="card-block center-block">
+						<div class="text-center text-muted text-nowrap small ">在线</div>
+						<div class="text-center text-middle text-bold">{固定数字2}</div>
+					</div>
+				</div>
+							</div>
+			
+		</div>
+		<div class="card">
+	<form action="{随机内容URL}" id="search_form">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="关键词" name="keyword">
+			<span class="input-group-btn">
+				<button class="btn btn-secondary" type="submit">搜索</button>
+			</span>
+		</div>
+	</form>
+	</div>
+	{include file="footer.html" }
+
+</body>
+</html>

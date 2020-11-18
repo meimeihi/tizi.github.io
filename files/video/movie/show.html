@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>{$toptitle}</title>
+	<meta name="description" content="{$description}" />
+	<meta name="keywords" content="{$keywords}" />
+    {include file="style.html"}
+</head>
+<body>
+{include file="head.html"}
+<div class="container">
+    <div class="container-fluid" style="background:#FFF;padding-top:15px;">
+		<ol class="breadcrumb">
+			<li><a href="/">首页</a></li>
+			<li><a target="_blank" href="{typename type="url" cacheid="$thisurl"/}">{getone name="typename:type_all" cacheid="$thisurl"/}</a></li>
+			<li><a target="_blank" href="{typename type="url" cacheid="$thisurl"/}">{getone name="typename:type_dy" cacheid="$thisurl"/}</a></li>
+			<li class="active">{$title}{getone name="typename:bofangleixing" cacheid="$thisurl"/}</li>
+		</ol>
+		<div class="row">
+			<div class="col-xs-9 movie-info padding-right-5" style="width:780px;">
+				<h1>{$title}</h1>
+				<div class="row">
+					<div class="col-xs-4 padding-right-0">
+						<a class="movie-post" href="{$thisurl}" style="display:block;position:relative;">
+							<img class="img-thumbnail" alt="{$title}" width="100%" src="{getone name="pic" cacheid="$thisurl"/}">
+						<span class="qtag hdtag">{getone name="typename:fenbianlv" cacheid="$thisurl"/}</span>                </a>
+						<em>最后更新：{$postdate}</em>
+						<div style="height:28px;">
+						<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+		<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='./static/api/js/share.js'+~(-new Date()/36e5)];</script>
+		</div>            </div> <!-- end col-xs-4 -->
+            <div class="col-xs-8">
+                <table class="table table-striped table-condensed table-bordered" style="margin-bottom:10px;font-size:12px;">
+<tbody>
+<tr>
+    <td class="span2"><span class="info-label">导演</span></td>
+    <td><a target="_blank" href="{typename type="url" cacheid="$thisurl"/}">{getone name="typename:mingxing" cacheid="$thisurl"/}</a></td>
+</tr>
+<tr>
+    <td class="span2"><span class="info-label">主演</span></td>
+    <td id="casts" style="position:relative;">
+	{loop type="typename" name="mingxing" row="5"}
+		<a href='{$vo.typeurl}'>{$vo.typename}</a>
+	{/loop}
+	<a class="casts-swith"><i class="glyphicon glyphicon-chevron-down"></i>显示全部</a></td>
+</tr>
+<tr>
+    <td class="span2"><span class="info-label">类型</span></td>
+    <td>{loop type="typename" name="type_all" row="3"}
+		<a href='{$vo.typeurl}'>{$vo.typename}</a>
+	{/loop}</td>
+</tr>
+<tr>
+    <td class="span2"><span class="info-label">语言</span></td>
+    <td>{getone name="typename:yuyan" cacheid="$thisurl"/}</td>
+</tr>
+<tr>
+<td class="span2"><span class="info-label">评分</span></td>
+<td>{getone name="typename:pingfen" cacheid="$thisurl"/}</td>
+</tr>
+<td class="span2"><span class="info-label">年份</span></td>
+<td><span class="year">({getone name="typename:nian" cacheid="$thisurl"/})</span></td>
+</tr>
+</tbody>
+</table>                <div class="btn-group " role="group" aria-label="" style="margin-top:5px;">
+    <a id="down-btn" rel="nofollow" href="#down" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-download-alt"></span> 下载</a>
+    <a id="plan_btn" rel="nofollow" href="javascript:;" onclick="plan(this,{rand(1,9999)})" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-time"></span> 想看</a>
+    <a id="watched_btn" rel="nofollow" href="javascript:;" onclick="watched(this,{rand(1,9999)})" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-check"></span> 看过</a>
+    <a id="like_btn" rel="nofollow" href="javascript:;" onclick="like(this,{rand(1,9999)})" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-heart"></span> 喜欢</a>
+</div>            </div>
+        </div>
+        <!-- summary start -->
+<div class="row" style="margin-top:5px;">
+<div class="col-xs-12"><h2>电影介绍</h2></div>
+<div class="col-xs-12 movie-introduce">{$body}<a class="swith" style="float:right;"><i class="glyphicon glyphicon-chevron-down"></i>展开全部</a></div>
+<div class="col-xs-12 tags">
+
+{loop type="typename" name="leixing" row="5"}
+						<a href='{$vo.typeurl}' class="tag">{$vo.typename}</a>
+					{/loop}
+</div>
+</div>
+        <!-- movie tags end -->
+
+    <hr class="sline" />
+        <!-- movie picture start -->
+        <!-- movie picture end -->
+<div style="padding:0;margin:15px 0 0;width:760px;background:#EEE;max-height:90px;"></div>
+
+
+        <!-- resource -->
+        <div class="row">
+            <div class="col-xs-12"><h2>资源下载</h2></div>
+            <div class="col-xs-12" id="link-box">
+                <ul id="movieTabs" class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a rel="nofollow" href="#normalDown" id="normalDown-tab" role="tab" data-toggle="tab" aria-controls="normalDown" aria-expanded="true">迅雷下载 <span class="badge">1</span></a></li>
+    <li role="presentation"><a rel="nofollow" aria-expanded="false" href="#sourceDown" role="tab" id="sourceDown-tab" data-toggle="tab" aria-controls="sourceDown">超清片源 <span class="badge">0</span></a></li>
+</ul>
+
+<div id="movieTabContent" class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="normalDown" aria-labelledby="normalDown-tab">
+        <div class="panel panel-default resource-list">
+        <div class="panel-heading"><strong id="down" name="down">{$title}迅雷下载</strong><span class="pull-right" style="font-weight:bolder;color:red;">正在加载 . . .</span></div>
+        <div class="panel-body">
+    </div>
+
+<table class="table table-hover" style="margin-bottom:0;"><tbody><tr>
+    <td width="40" align="center"><span title="这是一个网盘链接。" class="magnet-icon">网盘</span></td>
+    <td class="text-break" style="padding:8px 0;"><div style="height:1.5em;line-height:1.5;overflow:hidden;"><a href="#" rel="nofollow"><b>{$title}</b> - 百度云，网盘资源，密码：</a><strong style="color:red;">{randstr num="4" type="1"/}</strong> <a href="javascript:;" rel="nofollow" onclick="alert('若链接失效，请自行使用网盘的离线功能，不会的请看下方帮助。');"><span class="glyphicon glyphicon-alert"></span></a></div></td>
+    <td width="50" style="text-align:right;" align="center"><a target="_blank" href="#" class="res-info-btn" rel="nofollow">详情</a></td>
+</tr></tbody></table>            <div class="panel-footer resource-help">
+            <strong>《<b>{$title}</b>》-下载帮助：</strong><br />
+            1、想要在线观看，请保存到百度网盘中，没有网盘链接或者链接失效的，请搜索：百度云网盘离线下载教程。<br />
+            2、如需下载电影，请先安装迅雷（旋风），然后右键资源链接，选择迅雷（旋风）下载。<br/>
+            3、资源名称中含HD为高清，BD为蓝光 ，Mandarin是普通话，Cantonese是粤语，两者都有为双音轨。
+            </div>
+        </div><!-- end panel -->
+    </div> <!-- end normal -->
+    <div role="tabpanel" class="tab-pane" id="sourceDown" aria-labelledby="sourceDown-tab">
+    <div class="panel panel-default resource-list">
+        <div class="panel-heading"><strong>《<b>{$title}</b>》 - 片源下载 - 高清片源下载：</strong></div>
+<div class="alert-x alert-info" style=""><a href="javascript:void(0);">暂无片源</a></div>            <div class="panel-footer resource-help">
+            <strong>《{$title}》-片源下载帮助：</strong><br />
+            1、片源的码率比较高，所以体积相对较大。<br />
+            2、国外的片源一般是没有中文字幕的，所以请做好找字幕的准备。<br />
+            3、蓝光原盘拷贝，体积可能会达到几十个G，如果不是原盘爱好者，不建议下载。
+            </div>
+        </div><!-- end panel -->
+
+    </div>
+</div> <!-- end tab content -->
+
+
+<!-- 分享链接框 -->
+<div class="modal fade" id="shareModal" tabindex="-1" resid="" role="dialog" aria-labelledby="shareModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="shareModalLabel">分享在线观看链接：</h4>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-info">
+        如果你发现其他视频网站上能在线观看，欢迎你把链接分享给大家。
+        </div>
+        <form id="shareForm">
+            <div class="form-group">
+                <label for="movielink">播放链接：</label>
+                <textarea class="form-control" id="movielink" name="movielink" placeholder=""></textarea>
+            </div>
+            <input class="hidden" id="movietitle" name="movietitle" value="{$title}" />
+            <input class="hidden" name="mid" value="209413" />
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="shareLink();">分享</button>
+    </div>
+</div>
+</div>
+</div>            </div>
+        </div>
+        <!-- end resource -->
+
+<!-- recommened -->
+<div class="row">
+<div class="col-xs-12">
+<h2>有关“<b>{$title}</b>”的电影</h2></div>
+<div style="padding:0 10px;">
+{loop type="arclist" row="6" image=1}
+<div class="col-xs-2 movie-recommened">
+
+<a style="position:relative;display:block;" target="_blank" title="{$vo.title}" href="{$vo.url}">
+<img width="100%" src="{$vo.pic}" />
+<div class="item-hover"></div>
+</a>
+<a target="_blank" title="{$vo.title}" href="{$vo.url}"><h5>{$vo.title}</h5></a>
+</div>
+{/loop}
+
+</div>
+</div>
+<!-- recommened end -->
+
+<div style="padding:0;margin:0;width:760px;background:#EEE;max-height:90px;"></div>
+
+        <div class="row">
+            <div class="col-xs-12"><h2>影片评论</h2></div>
+            <div class="col-xs-12">
+            <div class="comment" style="margin-top:10px;">
+<hr class="dline" />
+<div style="border:2px dashed #CCC;margin-bottom:25px;color:#777;border-radius:5px;height:50px;line-height:50px;font-size:14px;text-align:center;font-family:'宋体'">暂无评论</div></div>            <ul id="pager"></ul>
+            </div>
+            <div class="col-xs-12">
+                                <div class="alert-x alert-info reply-box"><strong>提示：</strong><a href="#">[注册]</a> / <a href="#">[登入]</a> 之后才能评论</div>
+                            </div>
+        </div>
+    </div><!-- end movie-info -->
+    <div class="col-xs-3 sidebar" style="padding-left:15px;width:220px;padding-right:5px;">
+        
+	<h3>最近更新</h3>
+        <div class="list-group">
+	{loop type="arclist" row="10"}
+    <a target="_blank" href="{$vo.url}" class="list-group-item"><span class="square-item-{if $vo.i>3}blue{else}red{/if}">{$vo.i}</span>{$vo.title}</a>
+	{/loop}
+	</div>
+
+<h3>本周精选</h3>
+        <div class="list-group">
+		{loop type="arclist" row="10"}
+    <a target="_blank" href="{$vo.url}" class="list-group-item"><span class="square-item-{if $vo.i>3}blue{else}red{/if}">{$vo.i}</span>{$vo.title}</a>
+	{/loop}</div>            </div>
+</div><!-- end first row -->
+        </div>
+
+</div><!-- end container -->
+{include file="footer.html" }
+</body>
+</html>

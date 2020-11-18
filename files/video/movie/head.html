@@ -1,0 +1,42 @@
+<header style="background:#FFF;">
+<div style="padding:5px 0;border-bottom:1px solid #DDD;">
+    <div class="container">
+        <span class="header-help">欢迎来到{$web_name}，最近更新：<font color="red">{getone name="title" cacheid="$thisurl"/}</font></span>
+        <div class="pull-right">
+            <a class="header-help" href="javascript:alert('快捷键Ctrl+D可以快速添加到收藏夹。');">Ctrl+D 加入收藏夹</a> -
+            <a class="header-help" style="color:red;" href="/">保存到桌面</a>
+        </div>
+    </div>
+</div>
+<div class="container" style="padding:20px 15px;padding-right:0;">
+    <a class="logo pull-left" href="/"></a>
+    <div class="pull-right">
+        <form class="navbar-form pull-right" accept-charset="utf-8" action="{typename type="url"/}" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" name="q" placeholder="请输入电影名字">
+            </div><button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 搜索</button>
+        </form>
+        <div class="header-hot ">
+		{loop type="arclist" row="4"}
+            <a href="{$vo.url}" target="_blank" title="{$vo.title}">{$vo.title}</a>
+		{/loop}
+		</div>
+    </div>
+</div>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+            <ul class="nav navbar-nav">
+<li class="active"><a href="/">首页</a></li>
+ {loop type="typename" name="type_all" row="5" orderby="typename desc"}
+      	<li ><a href='{$vo.typeurl}'>{$vo.typename}</a></li>
+      	{/loop}
+</ul>
+                        <div class="pull-right">
+                <ul class="nav navbar-nav">
+                <li><a href="{typename type="url"/}" rel="nofollow"> 注册</a></li>
+                <li><a href="{typename type="url"/}" rel="nofollow">登录</a></li>
+                </ul>
+            </div>
+                </div>
+</nav>
+</header>

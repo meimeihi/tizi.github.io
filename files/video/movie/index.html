@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>{$toptitle}</title>
+	<meta name="description" content="{$description}" />
+	<meta name="keywords" content="{$keywords}" />
+    {include file="style.html"}
+</head>
+<body>
+{include file="head.html"}
+<div class="container">
+<div class="announcement alert-success" style="margin:-5px 0 10px 0;"><span class="glyphicon glyphicon-comment"></span>公告：正在升级程序，若遇到错误或不能访问，请稍等！</div>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+<ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+</ol>
+
+<div class="carousel-inner" role="listbox">
+        <div class="item active">
+        <a target="_blank" href="#" rel="nofollow"><img width="100%" src="{$theme_path}/large/828dc694gy1ffjj6ftbd5j20s20ci78a.jpg" alt="绑架者迅雷下载"></a>
+        <div class="carousel-caption">{getone name="title"/}</div>
+    </div>    <div class="item">
+        <a target="_blank" href="#" rel="nofollow"><img width="100%" src="{$theme_path}/large/828dc694gy1ff7d3xqdetj20s20cikjl.jpg" alt="攻壳机动队高清迅雷下载"></a>
+        <div class="carousel-caption">{getone name="title"/}</div>
+    </div>    <div class="item">
+        <a target="_blank" href="#" rel="nofollow"><img width="100%" src="{$theme_path}/large/828dc694gy1feszarbc8ij20s20cih1b.jpg" alt="一条狗的使命迅雷下载"></a>
+        <div class="carousel-caption">{getone name="title"/}</div>
+    </div>    <div class="item">
+        <a target="_blank" href="#" rel="nofollow"><img width="100%" src="{$theme_path}/large/828dc694gy1feoaxudqejj20s20ciq7b.jpg" alt="西游伏妖篇迅雷下载"></a>
+        <div class="carousel-caption">{getone name="title"/}</div>
+    </div>    <div class="item">
+        <a target="_blank" href="#" rel="nofollow"><img width="100%" src="{$theme_path}/large/828dc694gy1fec30p6v4gj20s20citaq.jpg" alt="越狱 第五季迅雷下载"></a>
+        <div class="carousel-caption">{getone name="title"/}</div>
+    </div></div>
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">上一张</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">下一张</span>
+    </a>
+</div>
+
+<div class="row">
+<div class="tag-box">
+    <table class="table" style="margin-bottom:10px;">
+        <tbody>
+        <tr>
+            <td class="tag-span2">年份：</td>
+            <td class="tags">
+				<a href="{typename type="url"/}" class="tag active" data-value="全部">全部</a>
+				{loop type="typename" name="nian" row="13" orderby="typename desc"}
+						<a href='{$vo.typeurl}' class="tag">{$vo.typename}</a>
+				{/loop}
+			</td>
+        </tr>
+        <tr>
+            <td class="tag-span2">评分排序：</td>
+            <td class="tags">
+				<a href="{typename type="url"/}" class="tag active" data-value="全部">全部</a>
+			{loop row="5"}
+				<a href="{typename type="url"/}" class="tag">><?php echo ($this->_var['vo']['i']+5);?>分</a>
+			{/loop}
+			</td>
+        </tr>
+        <tr>
+            <td class="tag-span2">来源：</td>
+            <td class="tags">
+				<a href="{typename type="url"/}" class="tag active" data-value="全部">全部</a>
+				{loop type="typename" name="laiyuan" row="23"  orderby="typename desc"}
+						<a href='{$vo.typeurl}' class="tag">{$vo.typename}</a>
+				{/loop}
+			</td>
+        </tr>
+        <tr style="border-bottom:1px solid #DDD;">
+            <td class="tag-span2">      影视类型：</td>
+            <td class="tags">
+			<a href="{typename type="url"/}" class="tag active" data-value="全部">全部</a>
+				{loop type="typename" name="leixing" row="23"  orderby="typename desc"}
+						<a href='{$vo.typeurl}' class="tag">{$vo.typename}</a>
+				{/loop}      </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+	
+    <div class="col-xs-12 index-box">
+			<h2 class="index-title">热门电影</h2>
+			<div style="margin:0 -10px;">
+
+			{loop type="arclist" row="10" image=1}
+			<div class="col-xs-1-5 movie-item">
+				<div class="movie-item-in">
+				<a style="position:relative;display:block;" title="{$vo.title}" target="_blank" href="{$vo.url}" rel="nofollow">
+					<img alt="{$vo.title}" src="{$vo.pic}">
+				<span class="qtag bdtag">{getone name="typename:fenbianlv" cacheid="$vo.url"/}</span>
+				<div class="item-hover"></div>
+				</a>
+				<div class="meta">
+					<h3><a href="{$vo.url}" target="_blank" title="{$vo.title}">{$vo.title}</a><em> - {getone name="typename:pingfen" cacheid="$vo.url"/}分</em></h3>
+					<div class="otherinfo">类型：
+					{loop type="typename" name="leixing" row="2"}
+						<a href='{$vo.typeurl}' class="movietype">{$vo.typename}</a>
+					{/loop}
+					</div>
+				</div>
+		</div>
+		</div>
+		{/loop}
+	
+	
+
+</div>
+    </div>
+
+<div class="col-xs-12"><div style="background:#FFF;padding:10px 0;font-size:0;">
+<div style="width:960px;margin:auto;"></div>
+</div></div>
+
+    <div class="col-xs-12 index-box">
+        <h2 class="index-title">最新电影</h2>
+        <div style="margin:0 -10px;">
+        {loop type="arclist" row="20" image=1}
+			<div class="col-xs-1-5 movie-item">
+				<div class="movie-item-in">
+				<a style="position:relative;display:block;" title="{$vo.title}" target="_blank" href="{$vo.url}" rel="nofollow">
+					<img alt="{$vo.title}" src="{$vo.pic}">
+				<span class="qtag bdtag">{getone name="typename:fenbianlv" cacheid="$vo.url"/}</span>
+				<div class="item-hover"></div>
+				</a>
+				<div class="meta">
+					<h3><a href="{$vo.url}" target="_blank" title="{$vo.title}">{$vo.title}</a><em> - {getone name="typename:pingfen" cacheid="$vo.url"/}分</em></h3>
+					<div class="otherinfo">类型：
+					{loop type="typename" name="leixing" row="2"}
+						<a href='{$vo.typeurl}' class="movietype">{$vo.typename}</a>
+					{/loop}
+					</div>
+				</div>
+		</div>
+		</div>
+		{/loop}
+</div>
+    </div> <!-- action movie end -->
+
+</div><!-- end first row -->
+    <a href="javascript:" class="btn btn-success btn-block" style="margin-top:20px;">更多精彩电影&gt;&gt;</a>
+</div><!-- end container -->
+{include file="footer.html" }
+</body>
+</html>
